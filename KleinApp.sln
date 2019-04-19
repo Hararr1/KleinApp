@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinMessage", "KleinMessage\KleinMessage.csproj", "{60D24109-BBFB-41D6-8783-39AC3C8E9131}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "KleinAppData", "KleinAppData\KleinAppData.sqlproj", "{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{60D24109-BBFB-41D6-8783-39AC3C8E9131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60D24109-BBFB-41D6-8783-39AC3C8E9131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60D24109-BBFB-41D6-8783-39AC3C8E9131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
