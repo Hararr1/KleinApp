@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinMessage", "KleinMessage\KleinMessage.csproj", "{60D24109-BBFB-41D6-8783-39AC3C8E9131}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "KleinAppData", "KleinAppData\KleinAppData.sqlproj", "{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinDataAPI", "KleinDataAPI\KleinDataAPI.csproj", "{A36BC838-0D8C-42E3-BD08-8550391E5594}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinAppDataManager.Library", "KleinAppDataManager.Library\KleinAppDataManager.Library.csproj", "{937EC321-3C82-4956-BF7D-0F903819A51E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "KleinAppData", "KleinAppData\KleinAppData.sqlproj", "{22F576DB-62E7-4904-92A5-F18C74949545}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinAppDesktopUI.Library", "KleinAppDesktopUI.Library\KleinAppDesktopUI.Library.csproj", "{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +23,24 @@ Global
 		{60D24109-BBFB-41D6-8783-39AC3C8E9131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60D24109-BBFB-41D6-8783-39AC3C8E9131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60D24109-BBFB-41D6-8783-39AC3C8E9131}.Release|Any CPU.Build.0 = Release|Any CPU
-		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{186F0FE8-120A-4F1D-AA9C-E34A522B06DE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A36BC838-0D8C-42E3-BD08-8550391E5594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36BC838-0D8C-42E3-BD08-8550391E5594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A36BC838-0D8C-42E3-BD08-8550391E5594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A36BC838-0D8C-42E3-BD08-8550391E5594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{937EC321-3C82-4956-BF7D-0F903819A51E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{937EC321-3C82-4956-BF7D-0F903819A51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{937EC321-3C82-4956-BF7D-0F903819A51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{937EC321-3C82-4956-BF7D-0F903819A51E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F576DB-62E7-4904-92A5-F18C74949545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F576DB-62E7-4904-92A5-F18C74949545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F576DB-62E7-4904-92A5-F18C74949545}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{22F576DB-62E7-4904-92A5-F18C74949545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F576DB-62E7-4904-92A5-F18C74949545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F576DB-62E7-4904-92A5-F18C74949545}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

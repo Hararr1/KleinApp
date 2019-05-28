@@ -8,7 +8,10 @@
                 <ResourceDictionary>
                     <local:Bootstrapper x:Key="Bootstrapper" />
                 </ResourceDictionary>
+                <ResourceDictionary Source="/Themes/roundButtonTheme.xaml"/>
+                <ResourceDictionary Source="/Themes/noBackgroundButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary> 
         
         

@@ -23,5 +23,37 @@ namespace KleinMessage.Views
         {
             InitializeComponent();
         }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ChatButton_Click(object sender, RoutedEventArgs e)
+        {
+            chatLabel.Background = new SolidColorBrush(Color.FromRgb(41, 216, 144));
+            searchLabel.Background = new SolidColorBrush(Colors.Black);
+            settingsLabel.Background = new SolidColorBrush(Colors.Black);
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            settingsLabel.Background = new SolidColorBrush(Color.FromRgb(41, 216, 144));
+            searchLabel.Background = new SolidColorBrush(Colors.Black);
+            chatLabel.Background = new SolidColorBrush(Colors.Black);
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            searchLabel.Background = new SolidColorBrush(Color.FromRgb(41, 216, 144));
+            chatLabel.Background = new SolidColorBrush(Colors.Black);
+            settingsLabel.Background = new SolidColorBrush(Colors.Black);
+        }
     }
 }
