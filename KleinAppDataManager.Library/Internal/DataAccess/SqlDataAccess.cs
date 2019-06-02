@@ -15,11 +15,14 @@ namespace KleinAppDataManager.Library.Internal.DataAccess
     {
         public string GetConnectionString(string name)
         {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            string x = ConfigurationManager.ConnectionStrings["KleinAppData"].ConnectionString;
+            // return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            //return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=KleinAppData;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            return x;
         }
 
 
-        public List<T> LoadData<T, U>(string storedProcedure, U parameters, string connectionStringName)
+        public List<T> LoadData<T, U>(string storedProcedure, U parameters, string connectionStringName = "KleinAppData")
         {
             string connectionString = GetConnectionString(connectionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -32,8 +35,8 @@ namespace KleinAppDataManager.Library.Internal.DataAccess
 
 
         }
-
-        public void SaveData<T>(string storedProcedure, T parameters, string connectionStringName)
+// Did i need U?
+        public void SaveData<T, U>(string storedProcedure, U parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))

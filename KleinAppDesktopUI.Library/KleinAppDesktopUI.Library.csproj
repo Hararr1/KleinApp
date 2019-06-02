@@ -53,11 +53,18 @@
     <Compile Include="Models\AuthenticatedUser.cs" />
     <Compile Include="Models\ILoggedInUserModel.cs" />
     <Compile Include="Models\LoggedInUserModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KleinAppDataManager.Library\KleinAppDataManager.Library.csproj">
+      <Project>{937EC321-3C82-4956-BF7D-0F903819A51E}</Project>
+      <Name>KleinAppDataManager.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

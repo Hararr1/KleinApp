@@ -10,18 +10,29 @@ using System.Web.Http;
 namespace KleinDataAPI.Controllers
 {
     [Authorize]
+    [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
       
-       [HttpGet]
+       [HttpGet]  
+       [Route("GetInfo")]
         public UserModel GetBy()
         {
             string userId = RequestContext.Principal.Identity.GetUserId();
             UserData data = new UserData();
             return data.GetUserById(userId).First();
         }
+        [HttpGet]
+        [Route("GetId")]
+        public string GetId()
+        {
+            string userId = RequestContext.Principal.Identity.GetUserId();
+            return userId;
+        }
 
-       
-        
+
+
+
+
     }
 }

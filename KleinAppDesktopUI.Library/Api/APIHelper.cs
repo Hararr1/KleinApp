@@ -1,4 +1,5 @@
-﻿using KleinAppDesktopUI.Library.Models;
+﻿using KleinAppDataManager.Library.DataAccess;
+using KleinAppDesktopUI.Library.Models;
 using KleinMessage.Models;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,51 @@ namespace KleinAppDesktopUI.Library.Api
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        
+
+        public async Task<bool> Register(string email, string password, string confirmpassword, string FirstName, string LastName)
+        {
+            var data = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("Email",email),
+                new KeyValuePair<string, string>("Password",password),
+                new KeyValuePair<string, string>("ConfirmPassword",confirmpassword)
+            });
+            using (HttpResponseMessage response = await ApiClient.PostAsync("/api/Account/Register", data))
+            {
+                if(response.IsSuccessStatusCode)
+                {
+
+                    //we need a token to save user to data table
+                    
+                    AuthenticatedUser giveToken = await Authenticate(email, password);
+
+                    try
+                    {
+                        string id = await GetIdInfo(giveToken.Access_Token);
+                        UserData user = new UserData();
+                        user.SaveUser(id, FirstName, LastName, giveToken.UserName);
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+
+                        throw new Exception(e.Message);
+                    }
+
+
+
+                    
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+
+            }
+
+        }
+
 
         public async Task<AuthenticatedUser> Authenticate(string username, string password)
         {
@@ -60,8 +106,9 @@ namespace KleinAppDesktopUI.Library.Api
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             ApiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+           
 
-            using (HttpResponseMessage response = await ApiClient.GetAsync("api/User"))
+            using (HttpResponseMessage response = await ApiClient.GetAsync("api/User/GetInfo"))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -83,6 +130,30 @@ namespace KleinAppDesktopUI.Library.Api
 
         }
 
+        //Get ID 
+        public async Task<string> GetIdInfo(string token)
+        {
+            ApiClient.DefaultRequestHeaders.Clear();
+            ApiClient.DefaultRequestHeaders.Accept.Clear();
+            ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ApiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+
+            using (HttpResponseMessage response = await ApiClient.GetAsync("api/User/GetId"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<string>();
+                    return result;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+
+            }
+
+        }
 
     }
 }

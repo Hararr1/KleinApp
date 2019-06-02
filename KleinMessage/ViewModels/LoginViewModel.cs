@@ -115,5 +115,10 @@ namespace KleinMessage.ViewModels
             }
         }
 
+        public void Register()
+        {
+            _events.PublishOnUIThread(new RegisterOnEvent());
+        }
+
     }
 }

@@ -6,7 +6,7 @@
     <Name>KleinAppData</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{22f576db-62e7-4904-92a5-f18c74949545}</ProjectGuid>
+    <ProjectGuid>{22e97f3f-1b96-4477-99ed-5e27f8bf4ab1}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
@@ -68,8 +68,6 @@
   <ItemGroup>
     <Build Include="dbo\Tables\User.sql" />
     <Build Include="dbo\Stored Procedures\spUserLookup.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="KleinAppData.refactorlog" />
+    <Build Include="dbo\Stored Procedures\spUserRegister.sql" />
   </ItemGroup>
 </Project>

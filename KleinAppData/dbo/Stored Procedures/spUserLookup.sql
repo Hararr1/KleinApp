@@ -8,5 +8,3 @@ BEGIN
 	FROM [dbo].[User]
 	WHERE UserId = @UserId;
 END
-
-

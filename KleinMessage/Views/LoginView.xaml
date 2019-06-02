@@ -26,7 +26,6 @@
             </Border>-->
 
             <StackPanel>
-                <!--<Button x:Name="ExitButton" Style="{StaticResource exitButton}" Content="X" HorizontalAlignment="Right" Margin="0 0 20 0" Click="ExitButton_Click"/>-->
                 <Image Source="/Assets/logo.png" Width="100"/>
                 <TextBlock Text="KleinApp" FontFamily="Sitka Text"
                                FontWeight="Light" FontSize="25" 

@@ -9,19 +9,21 @@ using System.Threading.Tasks;
 
 namespace KleinMessage.ViewModels
 {
-    public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>
+    public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>, IHandle<RegisterOnEvent>
     {
 
         private IEventAggregator _events;
         private ChatViewModel _chatVM;
+        private RegisterViewModel _registerVM;
         private SimpleContainer _container;
         
 
 
-        public ShellViewModel( IEventAggregator events, ChatViewModel chatVM, SimpleContainer container)
+        public ShellViewModel( IEventAggregator events, ChatViewModel chatVM, RegisterViewModel regVW, SimpleContainer container)
         {
             _events = events;          
             _chatVM = chatVM;
+            _registerVM = regVW;
             _container = container;
 
             _events.Subscribe(this);
@@ -36,10 +38,10 @@ namespace KleinMessage.ViewModels
             
         }
 
-       
-
-
-
+        public void Handle(RegisterOnEvent message)
+        {
+            ActivateItem(_registerVM);
+        }
     }
 
 

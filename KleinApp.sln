@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinDataAPI", "KleinDataAP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinAppDataManager.Library", "KleinAppDataManager.Library\KleinAppDataManager.Library.csproj", "{937EC321-3C82-4956-BF7D-0F903819A51E}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "KleinAppData", "KleinAppData\KleinAppData.sqlproj", "{22F576DB-62E7-4904-92A5-F18C74949545}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinAppDesktopUI.Library", "KleinAppDesktopUI.Library\KleinAppDesktopUI.Library.csproj", "{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "KleinAppData", "KleinAppData\KleinAppData.sqlproj", "{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +31,16 @@ Global
 		{937EC321-3C82-4956-BF7D-0F903819A51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{937EC321-3C82-4956-BF7D-0F903819A51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{937EC321-3C82-4956-BF7D-0F903819A51E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22F576DB-62E7-4904-92A5-F18C74949545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22F576DB-62E7-4904-92A5-F18C74949545}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22F576DB-62E7-4904-92A5-F18C74949545}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{22F576DB-62E7-4904-92A5-F18C74949545}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22F576DB-62E7-4904-92A5-F18C74949545}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22F576DB-62E7-4904-92A5-F18C74949545}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFA3FA0A-D047-4BE6-A8DF-ED3CCCF0F2D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
