@@ -15,10 +15,10 @@ namespace KleinAppDataManager.Library.Internal.DataAccess
     {
         public string GetConnectionString(string name)
         {
-            string x = ConfigurationManager.ConnectionStrings["KleinAppData"].ConnectionString;
+            
             // return ConfigurationManager.ConnectionStrings[name].ConnectionString;
-            //return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=KleinAppData;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            return x;
+            return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=KleinApp;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            
         }
 
 

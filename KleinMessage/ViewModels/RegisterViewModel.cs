@@ -1,10 +1,12 @@
 ﻿using Caliburn.Micro;
 using KleinAppDesktopUI.Library.Api;
+using KleinMessage.EventModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace KleinMessage.ViewModels
 {
@@ -16,6 +18,56 @@ namespace KleinMessage.ViewModels
         private string _firstNameTextBox;
         private string _lastNameTextBox;
         private IAPIHelper _apiHelper;
+        private IEventAggregator _events;
+        private string _requestMessage;
+        private Brush _isSuccess;
+
+
+        #region properties
+
+        public string RequestMessage
+        {
+            get { return _requestMessage; }
+            set
+            {
+                _requestMessage = value;
+                NotifyOfPropertyChange(() => RequestMessage);
+                // todo color
+                NotifyOfPropertyChange(() => IsErrorVisible);
+
+            }
+        }
+
+        public Brush IsSuccess
+        {
+            get { return _isSuccess; }
+            set {
+                _isSuccess = value;
+                NotifyOfPropertyChange(() => IsSuccess);
+            }
+        }
+
+        public bool IsErrorVisible
+        {
+            get
+            {
+                bool output = false;
+
+                if (RequestMessage?.Length > 0)
+                {
+                    output = true;
+                }
+
+                return output;
+            }
+
+        }
+
+        public RegisterViewModel(IAPIHelper apiHelper, IEventAggregator events)
+        {
+            _apiHelper = apiHelper;
+            _events = events;
+        }
 
         public string EmailTextBox
         {
@@ -61,8 +113,6 @@ namespace KleinMessage.ViewModels
             }
         }
 
-
-
         public string LastNameTextBox
         {
             get { return _lastNameTextBox; }
@@ -72,22 +122,25 @@ namespace KleinMessage.ViewModels
                 NotifyOfPropertyChange(() => LastNameTextBox);
             }
         }
-
-
-
-
-       
-
-
-        public RegisterViewModel(IAPIHelper aPIHelper)
-        {
-            _apiHelper = aPIHelper;          
-        }
-
+        #endregion
 
         public async Task Create()
         {
-            var x = await _apiHelper.Register(EmailTextBox, PasswordTextBox, ConfirmPasswordTextBox, FirstNameTextBox, LastNameTextBox);
+            try
+            {
+                IsSuccess = Brushes.Green;
+                RequestMessage = "I'm trying to create a new account ..";
+                var x = await _apiHelper.Register(EmailTextBox, PasswordTextBox, ConfirmPasswordTextBox, FirstNameTextBox, LastNameTextBox);
+                _events.PublishOnUIThread(new RegisterSuccessEvent());           
+               
+                
+
+            }
+            catch (Exception e)
+            {
+                IsSuccess = Brushes.Red;
+                RequestMessage = e.Message;
+            }
         }
 
 

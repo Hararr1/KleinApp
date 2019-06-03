@@ -1,4 +1,5 @@
-﻿using KleinMessage.Models;
+﻿using KleinAppDesktopUI.Library.Models;
+using KleinMessage.Models;
 using System.Threading.Tasks;
 
 
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
     public interface IAPIHelper
     {
         Task<AuthenticatedUser> Authenticate(string username, string password);
-        Task GetLoggedInUserInfo(string token);
+        Task<LoggedInUserModel> GetLoggedInUserInfo(string token);
         Task<bool> Register(string email, string password, string confirmpassword, string FirstName, string LastName);
     }
 }

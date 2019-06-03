@@ -100,7 +100,7 @@ namespace KleinAppDesktopUI.Library.Api
             }
         }
 
-        public async Task GetLoggedInUserInfo(string token)
+        public async Task<LoggedInUserModel> GetLoggedInUserInfo(string token)
         {
             ApiClient.DefaultRequestHeaders.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Clear();
@@ -119,6 +119,7 @@ namespace KleinAppDesktopUI.Library.Api
                     _loggedInUser.LastName = result.LastName;
                     _loggedInUser.UserId = result.UserId;
                     _loggedInUser.Token = token;
+                    return (LoggedInUserModel)_loggedInUser;
 
                 }
                 else

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="KleinMessage.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KleinMessage.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="380" Background="Transparent" FontFamily="Sitka Text" FontSize="15">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Margin="0 15 0 0" HorizontalAlignment="Center">
+                <!--<Label Content="First Name"/>-->
+                <TextBlock x:Name="FirstNameText" Margin="0 2 0 2"/>
+            </StackPanel>
+            <Label Height="5" Width="350" Background="Black" Opacity="0.5"/>
+
+            <StackPanel Margin="0 15 0 0" HorizontalAlignment="Center">
+                <!--<Label Content="Last Name"/>-->
+                <TextBlock x:Name="LastNameText" Margin="0 2 0 2"/>
+            </StackPanel>
+            <Label Height="5" Width="350" Background="Black" Opacity="0.5"/>
+
+            <StackPanel Margin="0 15 0 0" HorizontalAlignment="Center">
+                <!--<Label Content="Email"/>-->
+                <TextBlock x:Name="EmailText" Margin="0 2 0 2"/>
+            </StackPanel>
+            <Label Height="5" Width="350" Background="Black" Opacity="0.5"/>
+
+            <StackPanel Margin="0 15 0 0" HorizontalAlignment="Center">
+                <!--<Label Content="Create Data"/>-->
+                <TextBlock x:Name="CreateText" Margin="0 2 0 2"/>
+            </StackPanel>
+            <Label Height="5" Width="350" Background="Black" Opacity="0.5"/>
+        </StackPanel>
+         
+
+    </Grid>
+</UserControl>

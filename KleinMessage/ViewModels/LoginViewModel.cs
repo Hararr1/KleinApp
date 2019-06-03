@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using KleinAppDesktopUI.Library.Api;
+using KleinAppDesktopUI.Library.Models;
 using KleinMessage.EventModels;
 using KleinMessage.Models;
 using System;
@@ -16,13 +17,15 @@ namespace KleinMessage.ViewModels
         private string _password;
         private IAPIHelper _apiHelper;
         private IEventAggregator _events;
+        private ILoggedInUserModel _user;
  
 
 
-        public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator events)
+        public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator events, ILoggedInUserModel user)
         {
             _apiHelper = aPIHelper;
             _events = events;
+            _user = user;
         }
         public string PasswordTextBox
         {
@@ -103,9 +106,9 @@ namespace KleinMessage.ViewModels
                 RequestMessage = "";
                 var result = await _apiHelper.Authenticate(UsernameTextBox, PasswordTextBox);
                 // capture more infromation about user
-                await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+                _user = await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
-                _events.PublishOnUIThread(new LogOnEvent());
+                _events.PublishOnUIThread(new LogOnEvent(_user));
                
             }
             catch (Exception ex)
