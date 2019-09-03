@@ -31,7 +31,7 @@ namespace KleinAppDesktopUI.Library.Api
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         
-
+        //Register new account
         public async Task<bool> Register(string email, string password, string confirmpassword, string FirstName, string LastName)
         {
             var data = new FormUrlEncodedContent(new[]
@@ -75,7 +75,7 @@ namespace KleinAppDesktopUI.Library.Api
 
         }
 
-
+        // authenicate method to get token
         public async Task<AuthenticatedUser> Authenticate(string username, string password)
         {
             var data = new FormUrlEncodedContent(new[]
@@ -99,7 +99,7 @@ namespace KleinAppDesktopUI.Library.Api
                 }
             }
         }
-
+        // give more information
         public async Task<LoggedInUserModel> GetLoggedInUserInfo(string token)
         {
             ApiClient.DefaultRequestHeaders.Clear();
@@ -153,6 +153,46 @@ namespace KleinAppDesktopUI.Library.Api
                 }
 
             }
+
+        }
+
+        //ChangePassword
+
+        public async Task<bool> ChangePassword(string token, string oldPassword, string newPassword, string confirmPassword)
+        {
+            // POST api/Account/ChangePassword
+            //need ChangePasswordBindingModel better is do new class in this library? or inherit from api ?
+
+
+            ApiClient.DefaultRequestHeaders.Clear();
+            ApiClient.DefaultRequestHeaders.Accept.Clear();
+            ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ApiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+            var data = new FormUrlEncodedContent(new[]
+           {
+                new KeyValuePair<string, string>("OldPassword",oldPassword),
+                new KeyValuePair<string, string>("NewPassword",newPassword),
+                new KeyValuePair<string, string>("ConfirmPassword",confirmPassword)
+            });
+
+
+            using (HttpResponseMessage response = await ApiClient.PostAsync("api/Account/ChangePassword", data))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+
+
+
 
         }
 

@@ -1,8 +1,11 @@
 ﻿using Caliburn.Micro;
 using KleinAppDesktopUI.Library.Api;
+using KleinAppDesktopUI.Library.ChatServer;
 using KleinAppDesktopUI.Library.Models;
 using KleinMessage.Helpers;
 using KleinMessage.ViewModels;
+using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNet.SignalR.Client.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,9 +36,10 @@ namespace KleinMessage
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>()
-                .Singleton<IAPIHelper, APIHelper>()            
-                .Singleton<ILoggedInUserModel, LoggedInUserModel>();
+                .Singleton<IEventAggregator, EventAggregator>()             
+                .Singleton<IAPIHelper, APIHelper>()    
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
+                .Singleton<IConnectionToServerModel, ConnectionToServerModel>();
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)

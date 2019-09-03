@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:KleinMessage.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="480" d:DesignWidth="380" Background="White">
+             d:DesignHeight="480" d:DesignWidth="380" Background="Transparent">
     <Grid>
-            
+        
+        <Grid Margin="20" >
+            <TextBlock x:Name="ServerTime" FontSize="20"/>
+        </Grid>
     </Grid>
 </UserControl>

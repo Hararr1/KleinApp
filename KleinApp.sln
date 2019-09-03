@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleinAppDesktopUI.Library",
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "KleinAppData", "KleinAppData\KleinAppData.sqlproj", "{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerKleinApp", "ServerKleinApp\ServerKleinApp.csproj", "{B4DF7CFC-46F1-4356-B865-75293F8E24DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22E97F3F-1B96-4477-99ED-5E27F8BF4AB1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B4DF7CFC-46F1-4356-B865-75293F8E24DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4DF7CFC-46F1-4356-B865-75293F8E24DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4DF7CFC-46F1-4356-B865-75293F8E24DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4DF7CFC-46F1-4356-B865-75293F8E24DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
