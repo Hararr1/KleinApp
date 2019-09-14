@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KleinMessage.Views"
         mc:Ignorable="d"      
-        Title="ShellView" Height="520" Width="480" AllowsTransparency="True" WindowStyle="None"
+        Title="ShellView" Height="750" Width="600" AllowsTransparency="True" WindowStyle="None"
         Background="Transparent" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         MouseDown="Window_MouseDown" >
     <Grid>
@@ -21,75 +21,72 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="380"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="480"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="10">
-                <TextBlock 
-                    x:Name="ServerTime"/>
+                
             </Grid>
             
             <Grid Grid.Column="1">
-                <Button x:Name="exitButton" Style="{StaticResource noBackgroundButton}" 
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Source="/Assets/logo.png" Width="150" Margin="0 5 160 5"
+                           Visibility="{Binding IsErrorVisible, 
+                    Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"/>
+                    <TextBlock 
+                    x:Name="ServerTime" Margin="10"/>
+                    <Button x:Name="exitButton" Style="{StaticResource noBackgroundButton}" 
                         Content="X" HorizontalAlignment="Right"
                         FontSize="15"
-                        FontFamily="Sitka Text"
-                       
+                        FontFamily="Sitka Text"                   
                         Margin="0 10 15 0" Click="ExitButton_Click"/>
-                
-
+                </StackPanel>
             </Grid>
 
 
-
-            <Border Grid.Column="0"  Grid.Row="1" Background="Transparent">
-                <StackPanel VerticalAlignment="Top" Margin="0 10 0 10">
-                    <Button x:Name="chat" Margin="0 0 0 0" 
-                            Style="{StaticResource noBackgroundButton}"
-                             Visibility="{Binding IsErrorVisible, 
-                    Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"
+            <Grid Grid.Column="0"  Grid.RowSpan="2" Margin="5 5 0 0">
+                <Expander Header="Show / Hide" Background="Transparent"  Visibility="{Binding IsErrorVisible, 
+                    Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}">
+                    <StackPanel Orientation="Vertical">
+                        <Button x:Name="ChatButton" Margin="0 0 0 0" 
+                            Style="{StaticResource noBackgroundButton}"                  
                             Click="ChatButton_Click">
-                        <StackPanel>
-                            <Image Source="/Assets/chat.png" Width="50" Margin="0 10 0 0"/>
-                            <TextBlock Text="Chat" FontFamily="Sitka Text"
+                            <StackPanel>
+                                <Image Source="/Assets/chat.png" Width="50" Margin="0 10 0 0"/>
+                                <TextBlock Text="Chat" FontFamily="Sitka Text"
                                        FontSize="25" HorizontalAlignment="Center"
                                        Margin="0 10 0 10"/>
-                            <Label x:Name="chatLabel"  Margin="10 0 10 0" Background="Black" Height="5"/>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="searchButton" Margin="0 5 0 0" 
-                            Style="{StaticResource noBackgroundButton}"
-                            Visibility="{Binding IsErrorVisible, 
-                    Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"
+                                <Label x:Name="chatLabel"  Margin="10 0 10 0" Background="Black" Height="5"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="searchButton" Margin="0 5 0 0" 
+                            Style="{StaticResource noBackgroundButton}"                      
                             Click="SearchButton_Click">
-                        <StackPanel>
-                            <Image Source="/Assets/magnifier.png" Width="50" Margin="0 10 0 0"/>
-                            <TextBlock Text="Search" FontFamily="Sitka Text"
+                            <StackPanel>
+                                <Image Source="/Assets/magnifier.png" Width="50" Margin="0 10 0 0"/>
+                                <TextBlock Text="Search" FontFamily="Sitka Text"
                                        FontSize="25" HorizontalAlignment="Center"
                                        Margin="0 10 0 10"/>
-                            <Label x:Name="searchLabel" Margin="10 0 10 0" Background="Black" Height="5"/>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="settingsButton" Margin="0 5 0 0" 
+                                <Label x:Name="searchLabel" Margin="10 0 10 0" Background="Black" Height="5"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="SettingsButton" Margin="0 5 0 0" 
                             Style="{StaticResource noBackgroundButton}"
-                            Visibility="{Binding IsErrorVisible, 
-                    Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"
                             Click="SettingsButton_Click">
-                        <StackPanel>
-                            <Image Source="/Assets/settings.png" Width="50" Margin="0 10 0 0"/>
-                            <TextBlock Text="Settings" FontFamily="Sitka Text"
+                            <StackPanel>
+                                <Image Source="/Assets/settings.png" Width="50" Margin="0 10 0 0"/>
+                                <TextBlock Text="Settings" FontFamily="Sitka Text"
                                        FontSize="25" HorizontalAlignment="Center"
                                        Margin="0 10 0 10"/>
-                            <Label x:Name="settingsLabel" Margin="10 0 10 0" Background="Black" Height="5"/>
-                        </StackPanel>
-                    </Button>
-
-
-                </StackPanel>
-            </Border>
+                                <Label x:Name="settingsLabel" Margin="10 0 10 0" Background="Black" Height="5"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Expander>
+            </Grid>
             <ContentControl Grid.Column="1" Grid.Row="1" x:Name="ActiveItem"/>
         </Grid>
 

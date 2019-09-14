@@ -11,12 +11,8 @@ namespace KleinMessage.EventModels
 {
     public class LogOnEvent
     {
-        public ILoggedInUserModel _user;
-        public IConnectionToServerModel _serverModel;
-        public LogOnEvent(ILoggedInUserModel user, IConnectionToServerModel serverModel)
+        public LogOnEvent()
         {
-            _user = user;
-            _serverModel = serverModel;
         }
     }
 }

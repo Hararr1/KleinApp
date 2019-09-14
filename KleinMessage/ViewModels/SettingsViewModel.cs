@@ -13,7 +13,6 @@ namespace KleinMessage.ViewModels
 {
     public class SettingsViewModel : Screen
     { 
-        private ILoggedInUserModel _user;
         private IAPIHelper _helper;
         private string _firstNameText;
         private string _lasttNameText;
@@ -27,14 +26,14 @@ namespace KleinMessage.ViewModels
         private Brush _isSuccess;
 
 
-        public SettingsViewModel(ILoggedInUserModel user, IAPIHelper helper)
+        public SettingsViewModel(IAPIHelper helper)
         {
-            _user = user;
+  
             _helper = helper;
-            FirstNameText = _user.FirstName;
-            LastNameText = _user.LastName;
-            EmailText = _user.EmailAddress;
-            CreateText = _user.CreatedDate.ToLongDateString();
+            FirstNameText = ApplicationItemsCollection.Logged.FirstName;
+            LastNameText = ApplicationItemsCollection.Logged.LastName;
+            EmailText = ApplicationItemsCollection.Logged.EmailAddress;
+            CreateText = ApplicationItemsCollection.Logged.CreatedDate.ToLongDateString();
      
         }
 
@@ -143,7 +142,7 @@ namespace KleinMessage.ViewModels
         public async Task ChangePassword()
         {
             RequestMessage = "";
-            var request = await _helper.ChangePassword(_user.Token, OldPasswordBox , NewPasswordBox, ConfirmPasswordBox);
+            var request = await _helper.ChangePassword(ApplicationItemsCollection.Logged.Token, OldPasswordBox , NewPasswordBox, ConfirmPasswordBox);
             if(request == true)
             {
                 IsSuccess = Brushes.Green;

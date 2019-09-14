@@ -18,19 +18,15 @@ namespace KleinMessage.ViewModels
    public class LoginViewModel : Screen
     {
         private string _username= "halo@wp.pl";
-        private string _password = "Herbatka15!";
+        private string _password = "Herbatka16!";
         private IAPIHelper _apiHelper;
         private IEventAggregator _events;
-        private ILoggedInUserModel _user;
-        private IConnectionToServerModel _serverModel;
         private string _requestMessage;
        
         public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator events, ILoggedInUserModel user, IConnectionToServerModel serverModel)
         {
             _apiHelper = aPIHelper;
             _events = events;
-            _user = user;
-            _serverModel = serverModel;
         }
         public string PasswordTextBox
         {
@@ -102,14 +98,14 @@ namespace KleinMessage.ViewModels
             {
                 RequestMessage = "";
                 var result = await _apiHelper.Authenticate(UsernameTextBox, PasswordTextBox);
-                _user = await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+                ApplicationItemsCollection.Logged = await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
                 string url = ConfigurationManager.AppSettings["server"];
-                _serverModel._connection = new HubConnection(url);
-                _serverModel._proxy = _serverModel._connection.CreateHubProxy("ChatHub");
-                _serverModel._connection.Start().Wait();
+                ApplicationItemsCollection.Connection._connection = new HubConnection(url);
+                ApplicationItemsCollection.Connection._proxy = ApplicationItemsCollection.Connection._connection.CreateHubProxy("ChatHub");
+                ApplicationItemsCollection.Connection._connection.Start().Wait();
 
-                _events.PublishOnUIThread(new LogOnEvent(_user, _serverModel));             
+                _events.PublishOnUIThread(new LogOnEvent());             
 
             }
             catch (Exception)

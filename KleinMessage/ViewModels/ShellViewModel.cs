@@ -18,12 +18,10 @@ namespace KleinMessage.ViewModels
     {
 
         private IEventAggregator _events;
-        private ILoggedInUserModel _logged;
         private ChatViewModel _chatVM;
         private RegisterViewModel _registerVM;
         private SettingsViewModel _settingsVM;
         private SimpleContainer _container;
-        private IConnectionToServerModel _connection;
         private string _serverTime;
 
 
@@ -45,7 +43,7 @@ namespace KleinMessage.ViewModels
             {
                 bool output = false;
 
-                if (_logged!=  null)
+                if (ApplicationItemsCollection.Logged != null)
                 {
                     output = true;
                 }
@@ -57,9 +55,7 @@ namespace KleinMessage.ViewModels
 
 
         public ShellViewModel(IEventAggregator events, ChatViewModel chatVM, RegisterViewModel regVW, SimpleContainer container, SettingsViewModel settingsVM)
-        {
-            _logged = null;
-            _connection = null;           
+        {         
             _events = events;
             _chatVM = chatVM;
             _registerVM = regVW;
@@ -69,21 +65,20 @@ namespace KleinMessage.ViewModels
 
             ActivateItem(_container.GetInstance<LoginViewModel>());           
         }
-
         public void Handle(LogOnEvent message)
         {
-            _logged = message._user;
-            _connection = message._serverModel;
-            if (_connection._connection != null)
+            
+         
+            if (ApplicationItemsCollection.Connection._connection != null)
             {
                 try
                 {
-                    _connection._proxy.Invoke("LogOnSever", _logged.FirstName);
-                    _connection._proxy.On<string>("displayTime", value =>
+                    ApplicationItemsCollection.Connection._proxy.Invoke("LogOnSever", ApplicationItemsCollection.Logged.FirstName);
+                    ApplicationItemsCollection.Connection._proxy.On<string>("displayTime", value =>
                     {
                         ServerTime = value;
                     });
-                    _connection._proxy.Invoke("ServerTime");
+                    ApplicationItemsCollection.Connection._proxy.Invoke("ServerTime");
 
                 }
                 catch (Exception)
@@ -96,24 +91,22 @@ namespace KleinMessage.ViewModels
             NotifyOfPropertyChange(() => IsErrorVisible);
             ActivateItem(_container.GetInstance<ChatViewModel>());
         }
-
         public void Handle(RegisterOnEvent message)
         {
             ActivateItem(_registerVM);
         }
-
         public void Handle(RegisterSuccessEvent message)
         {
             ActivateItem(_container.GetInstance<LoginViewModel>());
-        }
+        }    
 
-      
 
-        public void settingsButton()
+
+        public void SettingsButton()
         {           
             ActivateItem(_container.GetInstance<SettingsViewModel>());
         }
-        public void chat()
+        public void ChatButton()
         {
             ActivateItem(_container.GetInstance<ChatViewModel>());
         }
