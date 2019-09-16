@@ -3,6 +3,7 @@ using KleinAppDesktopUI.Library.ChatServer;
 using KleinAppDesktopUI.Library.Models;
 using KleinMessage.EventModels;
 using KleinMessage.Models;
+using KleinMessage.WorkSpace.Models;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using System;
@@ -18,6 +19,7 @@ namespace KleinMessage.ViewModels
     {
 
         private IEventAggregator _events;
+        private IService _chatService;
         private ChatViewModel _chatVM;
         private RegisterViewModel _registerVM;
         private SettingsViewModel _settingsVM;
@@ -43,7 +45,7 @@ namespace KleinMessage.ViewModels
             {
                 bool output = false;
 
-                if (ApplicationItemsCollection.Logged != null)
+                if (ApplicationItemsCollection.Logged.UserId != null)
                 {
                     output = true;
                 }
@@ -54,31 +56,30 @@ namespace KleinMessage.ViewModels
         }
 
 
-        public ShellViewModel(IEventAggregator events, ChatViewModel chatVM, RegisterViewModel regVW, SimpleContainer container, SettingsViewModel settingsVM)
+        public ShellViewModel(IEventAggregator events, IService chatservice, ChatViewModel chatVM, RegisterViewModel regVW, SimpleContainer container, SettingsViewModel settingsVM)
         {         
             _events = events;
+            _chatService = chatservice;
             _chatVM = chatVM;
             _registerVM = regVW;
             _settingsVM = settingsVM;
             _container = container;        
             _events.Subscribe(this);
-
+            _chatService.Connected();
+            _chatService.TimeHandling += TimeHandle;
             ActivateItem(_container.GetInstance<LoginViewModel>());           
         }
         public void Handle(LogOnEvent message)
         {
             
          
-            if (ApplicationItemsCollection.Connection._connection != null)
+            if (_chatService != null)
             {
                 try
                 {
-                    ApplicationItemsCollection.Connection._proxy.Invoke("LogOnSever", ApplicationItemsCollection.Logged.FirstName);
-                    ApplicationItemsCollection.Connection._proxy.On<string>("displayTime", value =>
-                    {
-                        ServerTime = value;
-                    });
-                    ApplicationItemsCollection.Connection._proxy.Invoke("ServerTime");
+                 
+                    
+                    _chatService.LogIn();
 
                 }
                 catch (Exception)
@@ -91,6 +92,12 @@ namespace KleinMessage.ViewModels
             NotifyOfPropertyChange(() => IsErrorVisible);
             ActivateItem(_container.GetInstance<ChatViewModel>());
         }
+
+        private void TimeHandle(string obj)
+        {
+            ServerTime = obj;
+        }
+
         public void Handle(RegisterOnEvent message)
         {
             ActivateItem(_registerVM);
@@ -109,6 +116,11 @@ namespace KleinMessage.ViewModels
         public void ChatButton()
         {
             ActivateItem(_container.GetInstance<ChatViewModel>());
+        }
+
+        public void exitButton()
+        {
+           
         }
     }
 

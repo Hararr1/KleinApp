@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KleinMessage.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="710" d:DesignWidth="500" 
-             xmlns:cal="http://www.caliburnproject.org">
+             d:DesignHeight="710" d:DesignWidth="600" 
+             xmlns:cal="http://www.caliburnproject.org" Background="Azure">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -26,7 +26,7 @@
                 </Border.Background>
             </Border>-->
 
-            <StackPanel Margin="0 40 50 0">
+            <StackPanel Margin="0 40 0 0">
                 <Image Source="/Assets/logo.png" Width="150"/>
                 <TextBlock
                     x:Name="FirmNameTextBlock"
@@ -34,8 +34,8 @@
                                FontWeight="Light" FontSize="40" 
                                 HorizontalAlignment="Center" />
             </StackPanel>
-            <StackPanel Grid.Row="1" Margin="30 0 50 0">
-                <StackPanel Orientation="Horizontal" Margin="15 20 0 0">
+            <StackPanel Grid.Row="1" Margin="80 0 80 0">
+                <StackPanel Orientation="Horizontal" Margin="50 20 50 0">
 
                     <TextBox 
                          x:Name="UsernameTextBox"                    
@@ -59,11 +59,11 @@
                          x:Name="UsernameLabel" Height="2"
                          Background="Black"
                          Opacity="0.5"
-                         Margin="15,5,72,0"/>
+                         Margin="50,5,50,0"/>
 
 
 
-                <StackPanel Orientation="Horizontal" Margin="15 20 0 0">
+                <StackPanel Orientation="Horizontal" Margin="50 20 50 0">
 
                     <PasswordBox 
                         x:Name="PasswordTextBox" 
@@ -90,7 +90,7 @@
                 <Label  
                         x:Name="PasswordLabel" Height="2"
                         Background="Black"
-                        Opacity="0.5" Margin="15,5,72,0"/>
+                        Opacity="0.5" Margin="50,5,50,0"/>
                 <TextBlock x:Name="RequestMessage"
                            HorizontalAlignment="Center"
                            Foreground="Red"
@@ -100,7 +100,7 @@
                              />
 
 
-                <StackPanel Orientation="Horizontal" Margin="10 50 0 0">
+                <StackPanel Orientation="Horizontal" Margin="50 50 50 0">
                     <Button x:Name="LogIn" Style="{StaticResource RoundButtonStyle}" Width="140" Height="50" Content="LOGIN" Margin="0 0 60 0"/>
                     <Button x:Name="Register" Style="{StaticResource RoundButtonStyle}" Width="140" Height="50" Content="REGISTER"/>
                 </StackPanel>

@@ -4,6 +4,7 @@ using KleinAppDesktopUI.Library.ChatServer;
 using KleinAppDesktopUI.Library.Models;
 using KleinMessage.Helpers;
 using KleinMessage.ViewModels;
+using KleinMessage.WorkSpace.Models;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using System;
@@ -39,6 +40,7 @@ namespace KleinMessage
                 .Singleton<IEventAggregator, EventAggregator>()             
                 .Singleton<IAPIHelper, APIHelper>()    
                 .Singleton<ILoggedInUserModel, LoggedInUserModel>()
+                .Singleton<IService, Service>()
                 .Singleton<IConnectionToServerModel, ConnectionToServerModel>();
 
             GetType().Assembly.GetTypes()

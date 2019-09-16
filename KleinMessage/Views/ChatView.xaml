@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
-           
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              d:DesignHeight="710" d:DesignWidth="500" Foreground="Red">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,19 +17,48 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1" Margin="10" Background="White" >
-            <ScrollViewer Margin="20" Background="Transparent">
+            <ScrollViewer Margin="20" Background="Transparent" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical" Margin="10">
-                    <ListView x:Name="MessageListBox">
-                      
+                    <ListView x:Name="Message2">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Content}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
                 
                 </StackPanel>
             </ScrollViewer>
            
         </Grid>
+        <!--cal:Message.Attach="[Event Click] = [Action IsFriendChoosen($eventArgs)]"-->
+        <Grid Grid.Column="0" Grid.Row="0">
+            <StackPanel Margin="5 10 5 10" Orientation="Vertical">
+                <ListView x:Name="FirendsList">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button
+                                Content="{Binding Path=Friend}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger  EventName="Click">
+                                        <cal:ActionMessage  MethodName="IsFriendChoosen" >
+                                            <cal:Parameter Value="{Binding Path=Friend}">
+                                            </cal:Parameter>
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+
+
+                        </DataTemplate>
+                        
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Grid>
         
         
-        <DockPanel Grid.Column="1" Grid.Row="1" Margin="20 10 20 10" Background="White">
+        <DockPanel Grid.Column="1" Grid.Row="1" Margin="10" Background="White">
             <TextBox x:Name="MessageContent" Width="300" TextWrapping="Wrap"/>
             <Button x:Name="SendMessageButton" Content="Send" DockPanel.Dock="Right"/>
         </DockPanel>

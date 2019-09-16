@@ -99,13 +99,7 @@ namespace KleinMessage.ViewModels
                 RequestMessage = "";
                 var result = await _apiHelper.Authenticate(UsernameTextBox, PasswordTextBox);
                 ApplicationItemsCollection.Logged = await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
-
-                string url = ConfigurationManager.AppSettings["server"];
-                ApplicationItemsCollection.Connection._connection = new HubConnection(url);
-                ApplicationItemsCollection.Connection._proxy = ApplicationItemsCollection.Connection._connection.CreateHubProxy("ChatHub");
-                ApplicationItemsCollection.Connection._connection.Start().Wait();
-
-                _events.PublishOnUIThread(new LogOnEvent());             
+               _events.PublishOnUIThread(new LogOnEvent());             
 
             }
             catch (Exception)

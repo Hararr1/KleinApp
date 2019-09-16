@@ -2,6 +2,7 @@
 using KleinAppDesktopUI.Library.ChatServer;
 using KleinAppDesktopUI.Library.Models;
 using KleinMessage.Models;
+using KleinMessage.WorkSpace.Models;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using System;
@@ -21,26 +22,77 @@ namespace KleinMessage.ViewModels
     {
 
         private string _messageContent;
-        private ObservableCollection<string> _messageListBox;
+        private IService _chatService;
 
-        public ObservableCollection<string> MessageListBox
+        private ObservableCollection<MessageContentStructure> _message2;
+
+        public ObservableCollection<MessageContentStructure> Message2
         {
-            get { return _messageListBox; }
+            get { return _message2; }
+            set {
+              
+                    _message2 = value;
+                   // ApplicationItemsCollection.AllMessages[0].Messages = value;
+                    NotifyOfPropertyChange(() => Message2);              
+            }
+        }
+
+        private ObservableCollection<MessageStructure> _friendsList;
+
+        public ObservableCollection<MessageStructure> FirendsList
+        {
+            get
+            {
+                return _friendsList;
+            }
             set
             {
-                _messageListBox = value;
-                NotifyOfPropertyChange(() => MessageListBox);
+                _friendsList = value;
+                NotifyOfPropertyChange(() => _friendsList);
+
+            }
+        }
+
+        private string _friend;
+
+        public string Friend
+        {
+            get { return _friend; }
+            set
+            {
+                _friend = value;
+                var searchFriend = ApplicationItemsCollection.AllMessages.Where(x => x.Friend == value).SingleOrDefault();
+                Message2 = searchFriend.Messages;
+                NotifyOfPropertyChange(() => Friend);
             }
         }
 
 
 
+        public ChatViewModel (IService chatService)
+            {
+            /* My first idea is when client choosed friend to conversation with him
+             * constructor should searched from ApplicationItems.Collections.AllMessages.. friends
+             * with argument submitted and then create ChatView.xaml
+             *  public static ObservableCollection<MessageStructure> AllMessages
+             *  TODO: IHandle<xxxx> when somebody send a message
+             *  
+             */
+            _chatService = chatService;
+           FirendsList = ApplicationItemsCollection.AllMessages;
+             Message2 = ApplicationItemsCollection.AllMessages[0].Messages;
+  
 
-        public ChatViewModel ()
-            {           
-                MessageListBox = new ObservableCollection<string>();
-          
-        }          
+         
+  
+        }
+
+        private void NewMessageResult(string message, string friend)
+        {
+            var searchFriend = ApplicationItemsCollection.AllMessages.Where(x => x.Friend == friend).SingleOrDefault();
+            searchFriend.Messages.Add(new MessageContentStructure { Flag = false, Content = message });
+        }
+
         public string MessageContent
         {
             get { return _messageContent; }
@@ -55,10 +107,26 @@ namespace KleinMessage.ViewModels
         public void SendMessageButton()
         {
             string x =  MessageContent;
-            
-            MessageListBox.Add(x);
+            var d = new MessageContentStructure() {Flag= true, Content= x };
+            Message2.Add(d);
+
+
+            //   ApplicationItemsCollection.AllMessages[0].Messages.Add(d);
+
+             
+
+
             // TODO 
         }
+
+        public void IsFriendChoosen(string text)
+        {
+            Friend = text;
+            //TODO When client choosen friend set Message2 to appropriate in AppItemsColl.. 
+         
+        }
+
+     
 
     }
 }
