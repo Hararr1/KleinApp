@@ -6,61 +6,96 @@
              mc:Ignorable="d" 
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             d:DesignHeight="710" d:DesignWidth="500" Foreground="Red">
-    <Grid>
+             d:DesignHeight="780" d:DesignWidth="700" Foreground="Red">
+    
+    
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cal:ActionMessage MethodName="LoadData"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+            <Grid>
+
+      
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
         <Grid Grid.Column="1" Margin="10" Background="White" >
             <ScrollViewer Margin="20" Background="Transparent" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical" Margin="10">
-                    <ListView x:Name="Message2">
+                    <ListView 
+                        x:Name="CurrentMessage"
+                        Background="Transparent">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=Content}"/>
+                                <TextBlock Text="{Binding Path=Messages.Content, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                
                 </StackPanel>
             </ScrollViewer>
            
         </Grid>
         <!--cal:Message.Attach="[Event Click] = [Action IsFriendChoosen($eventArgs)]"-->
         <Grid Grid.Column="0" Grid.Row="0">
-            <StackPanel Margin="5 10 5 10" Orientation="Vertical">
-                <ListView x:Name="FirendsList">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Button
-                                Content="{Binding Path=Friend}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger  EventName="Click">
-                                        <cal:ActionMessage  MethodName="IsFriendChoosen" >
-                                            <cal:Parameter Value="{Binding Path=Friend}">
-                                            </cal:Parameter>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>
 
+            <ListView 
+                x:Name="RegistryMessages" 
+                Margin="5 10 5 10" >
+                    <ListView.View>
+                        <GridView>
+                        <GridViewColumn 
+                            HeaderContainerStyle="{StaticResource GridViewColumnHeader}" 
+                            Width="120">
+                            <GridViewColumn.Header>
+                                <StackPanel>
+                                    <TextBlock Text="Friends List"/>
+                                    <Label Height="2" Background="Black"/>
+                                </StackPanel>
+                            </GridViewColumn.Header>
 
-                        </DataTemplate>
-                        
-                    </ListView.ItemTemplate>
+                            <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                    <Border>
+                                        <Grid>
+                                            
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding Friend.Name}"/>
+                                                <Label Height="1" Background="Black"/>
+                                            </StackPanel>
+
+                                            <TextBlock 
+                                                Grid.Row="1" 
+                                                Text="{Binding Messages.Content}"/>
+                                        </Grid>
+                                    </Border>
+                                     
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
                 </ListView>
-            </StackPanel>
+     
         </Grid>
         
         
         <DockPanel Grid.Column="1" Grid.Row="1" Margin="10" Background="White">
-            <TextBox x:Name="MessageContent" Width="300" TextWrapping="Wrap"/>
-            <Button x:Name="SendMessageButton" Content="Send" DockPanel.Dock="Right"/>
+            <TextBox x:Name="MessageContent" Width="300" TextWrapping="Wrap" AcceptsReturn="True"/>
+            <Button Style="{StaticResource RoundButtonStyle}"  x:Name="SendMessageButton" Content="Send" DockPanel.Dock="Right"/>
         </DockPanel>
 
 

@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerKleinApp.Models
+namespace KleinMessage.Models
 {
-   public class User
+    public class User
     {
-        public string Name { get; set; }
         public string ID { get; set; }
-
+        public string Name { get; set; }
         public string IDApi { get; set; }
     }
 }

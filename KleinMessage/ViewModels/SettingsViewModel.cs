@@ -30,10 +30,10 @@ namespace KleinMessage.ViewModels
         {
   
             _helper = helper;
-            FirstNameText = ApplicationItemsCollection.Logged.FirstName;
-            LastNameText = ApplicationItemsCollection.Logged.LastName;
-            EmailText = ApplicationItemsCollection.Logged.EmailAddress;
-            CreateText = ApplicationItemsCollection.Logged.CreatedDate.ToLongDateString();
+            FirstNameText = ApplicationItemsCollection.Logged?.FirstName;
+            LastNameText = ApplicationItemsCollection.Logged?.LastName;
+            EmailText = ApplicationItemsCollection.Logged?.EmailAddress;
+            CreateText = ApplicationItemsCollection.Logged?.CreatedDate.ToLongDateString();
      
         }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KleinMessage.Views"
         mc:Ignorable="d"      
-        Title="ShellView" Height="750" Width="600" AllowsTransparency="True" WindowStyle="None"
+        Title="ShellView" Height="850" Width="700" AllowsTransparency="True" WindowStyle="None"
         Background="Transparent" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         MouseDown="Window_MouseDown" >
     <Grid>
@@ -53,11 +53,10 @@
                           Width="400">
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="ChatButton" Margin="20 5 15 10" 
-                            Style="{StaticResource noBackgroundButton}"                  
-                            Click="ChatButton_Click">
+                            Style="{StaticResource noBackgroundButton}">
                             <StackPanel>
-                                <Image Source="/Assets/chat.png" Width="30" Margin="0 10 0 0"/>
-                                <Label x:Name="chatLabel"  Margin="0 10 0 0" Background="Black" Height="5"/>
+                                <Image Source="/Assets/chat.png" Width="40" Margin="0 10 0 0"/>
+                                <Label x:Name="chatLabel"  Margin="0 10 0 0" Background="{Binding ChatLabelBackground}" Height="1"/>
                             </StackPanel>
                         </Button>
                         <Button x:Name="searchButton" Margin="10 5 15 10" 
@@ -65,16 +64,15 @@
                             Click="SearchButton_Click"
                              >
                             <StackPanel>
-                                <Image Source="/Assets/magnifier.png" Width="30" Margin="0 10 0 0"/>
-                                <Label x:Name="searchLabel" Margin="0 10 0 0" Background="Black" Height="5"/>
+                                <Image Source="/Assets/magnifier.png" Width="40" Margin="0 10 0 0"/>
+                                <Label x:Name="searchLabel" Margin="0 10 0 0" Background="{Binding SearchLabelBackground}" Height="2"/>
                             </StackPanel>
                         </Button>
                         <Button x:Name="SettingsButton" Margin="10 5 15 10" 
-                            Style="{StaticResource noBackgroundButton}"
-                            Click="SettingsButton_Click">
+                            Style="{StaticResource noBackgroundButton}">
                             <StackPanel>
-                                <Image Source="/Assets/settings.png" Width="30" Margin="0 10 0 0"/>
-                                <Label x:Name="settingsLabel" Margin="0 10 0 0" Background="Black" Height="5"/>
+                                <Image Source="/Assets/settings.png" Width="40" Margin="0 10 0 0"/>
+                                <Label x:Name="settingsLabel" Margin="0 10 0 0" Background="{Binding SettingsLabelBackground}" Height="1"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>

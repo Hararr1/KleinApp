@@ -1,20 +1,12 @@
 ﻿using Caliburn.Micro;
-using KleinAppDesktopUI.Library.ChatServer;
-using KleinAppDesktopUI.Library.Models;
 using KleinMessage.Models;
 using KleinMessage.WorkSpace.Models;
-using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Client.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Threading;
-using Action = System.Action;
+using System.Windows;
 
 namespace KleinMessage.ViewModels
 {
@@ -22,76 +14,68 @@ namespace KleinMessage.ViewModels
     {
 
         private string _messageContent;
-        private IService _chatService;
+        private IService chatService;
+        private ObservableCollection<MessageStructure> registryMessages;
 
-        private ObservableCollection<MessageContentStructure> _message2;
 
-        public ObservableCollection<MessageContentStructure> Message2
+        public ObservableCollection<MessageStructure> RegistryMessages
         {
-            get { return _message2; }
-            set {
-              
-                    _message2 = value;
-                   // ApplicationItemsCollection.AllMessages[0].Messages = value;
-                    NotifyOfPropertyChange(() => Message2);              
-            }
-        }
-
-        private ObservableCollection<MessageStructure> _friendsList;
-
-        public ObservableCollection<MessageStructure> FirendsList
-        {
-            get
-            {
-                return _friendsList;
-            }
+            get { return registryMessages; }
             set
             {
-                _friendsList = value;
-                NotifyOfPropertyChange(() => _friendsList);
-
+                registryMessages = value;
+                NotifyOfPropertyChange(() => RegistryMessages);
             }
         }
 
-        private string _friend;
 
-        public string Friend
+        private MessageStructure currentMessage = new MessageStructure();
+
+        public MessageStructure CurrentMessage
         {
-            get { return _friend; }
+            get { return currentMessage; }
             set
             {
-                _friend = value;
-                var searchFriend = ApplicationItemsCollection.AllMessages.Where(x => x.Friend == value).SingleOrDefault();
-                Message2 = searchFriend.Messages;
-                NotifyOfPropertyChange(() => Friend);
+                currentMessage = value;
+                NotifyOfPropertyChange(() => CurrentMessage);
             }
         }
 
-
-
-        public ChatViewModel (IService chatService)
-            {
-            /* My first idea is when client choosed friend to conversation with him
-             * constructor should searched from ApplicationItems.Collections.AllMessages.. friends
-             * with argument submitted and then create ChatView.xaml
-             *  public static ObservableCollection<MessageStructure> AllMessages
-             *  TODO: IHandle<xxxx> when somebody send a message
-             *  
-             */
-            _chatService = chatService;
-           FirendsList = ApplicationItemsCollection.AllMessages;
-             Message2 = ApplicationItemsCollection.AllMessages[0].Messages;
-  
-
-         
-  
-        }
-
-        private void NewMessageResult(string message, string friend)
+        public ChatViewModel(IService chatService)
         {
-            var searchFriend = ApplicationItemsCollection.AllMessages.Where(x => x.Friend == friend).SingleOrDefault();
-            searchFriend.Messages.Add(new MessageContentStructure { Flag = false, Content = message });
+            RegistryMessages = new ObservableCollection<MessageStructure>();
+            this.chatService = chatService;
+            this.chatService.IsSomebodyLoggedHandler += chatService_IsSomebodyLoggedHandler;
         }
+
+        private void chatService_IsSomebodyLoggedHandler(object sender, EventArgs e)
+        {
+            User userConnected = sender as User;
+
+            if (RegistryMessages.FirstOrDefault(x => x.Friend == userConnected) == null)
+            {
+                AddNewFriend(userConnected);
+            }
+        }
+
+        //private async Task NewTextMessage(string friend, string message)
+        //{
+
+        //    var sender = RegistryMessages.Where(x => x.Friend == friend).FirstOrDefault();
+        //    IsFriendChoosen(sender.Friend);
+
+        //    MessageContentStructure msg = new MessageContentStructure() { Flag = true, Content = message };
+
+
+
+        //           await Task.Run(()=> CurrentMessage.Messages.Add(msg));
+
+
+
+
+
+        //}
+
 
         public string MessageContent
         {
@@ -104,29 +88,83 @@ namespace KleinMessage.ViewModels
         }
 
 
-        public void SendMessageButton()
-        {
-            string x =  MessageContent;
-            var d = new MessageContentStructure() {Flag= true, Content= x };
-            Message2.Add(d);
+        
 
 
-            //   ApplicationItemsCollection.AllMessages[0].Messages.Add(d);
+        //public async Task<bool> SendMessageButton()
+        //{
+        //    string message = MessageContent;
+        //    string friend = CurrentMessage.Friend;
 
-             
+        //    try
+        //    {
+
+        //        await Task.Run(() => _chatService.SendUnicastMessageAsync(friend, message));
+        //        return true;
+
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        return false;
+        //    }
+        //    finally
+        //    {
+        //        MessageContentStructure msg = new MessageContentStructure() { Flag = true, Content = message };
+        //        CurrentMessage.Messages.Add(msg);
+        //        MessageContent = "";
+        //    }
+        //}
 
 
-            // TODO 
-        }
+        //   ApplicationItemsCollection.AllMessages[0].Messages.Add(d);
+
+
+
+
+        // TODO        
 
         public void IsFriendChoosen(string text)
         {
-            Friend = text;
+
+           // CurrentMessage = RegistryMessages.Where(x => x.Friend == text).SingleOrDefault();
+
             //TODO When client choosen friend set Message2 to appropriate in AppItemsColl.. 
-         
+
         }
 
-     
+       public async Task LoadData()
+        {
+            if (ApplicationItemsCollection.Logged != null)
+            {
+               await chatService.Connected();
+               List<User> users = await chatService.LogOnServer();
+
+                foreach (User user in users)
+                {
+                    if (user.IDApi != ApplicationItemsCollection.Logged.UserId)
+                    {
+                        AddNewFriend(user);
+                    }
+                }
+            }
+        }
+
+        private void AddNewFriend(User user)
+        {
+            MessageStructure messageStructure = new MessageStructure()
+            {
+                Friend = user,
+                Messages = new List<MessageContentStructure>()
+            };
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                RegistryMessages.Add(messageStructure);
+            });
+        }
+
+
 
     }
 }

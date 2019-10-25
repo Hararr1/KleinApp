@@ -1,16 +1,19 @@
-﻿using System;
+﻿using KleinMessage.Models;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KleinMessage.WorkSpace.Models
 {
     public interface IService
     {
-        event Action<string, string> MessageHandling;
-        event Action<string> TimeHandling;
+        event EventHandler IsSomebodyLoggedHandler;
+        event EventHandler SendTextMessageHandler;
+        event EventHandler TakeTextMessageHandler;
+        event EventHandler TimeHandler;
+
         Task Connected();
-        Task SendBroadcastMessageAsync(string msg);
-        Task SendUnicastMessageAsync(string friend, string message);
-        Task LogIn();
-        Task GetTime();
+        Task<List<User>> LogOnServer();
+       
     }
 }

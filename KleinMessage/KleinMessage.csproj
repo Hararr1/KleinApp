@@ -88,6 +88,7 @@
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Models\MessageContentStructure.cs" />
     <Compile Include="Models\MessageStructure.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\IChatService.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

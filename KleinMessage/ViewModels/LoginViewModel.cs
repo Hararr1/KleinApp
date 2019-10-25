@@ -2,20 +2,13 @@
 using KleinAppDesktopUI.Library.Api;
 using KleinAppDesktopUI.Library.Models;
 using KleinMessage.EventModels;
-using KleinMessage.Models;
-using Microsoft.AspNet.SignalR.Client;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace KleinMessage.ViewModels
 {
-   public class LoginViewModel : Screen
+    public class LoginViewModel : Screen
     {
         private string _username= "halo@wp.pl";
         private string _password = "Herbatka16!";
@@ -99,7 +92,8 @@ namespace KleinMessage.ViewModels
                 RequestMessage = "";
                 var result = await _apiHelper.Authenticate(UsernameTextBox, PasswordTextBox);
                 ApplicationItemsCollection.Logged = await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
-               _events.PublishOnUIThread(new LogOnEvent());             
+               _events.PublishOnUIThread(new LogOnEvent()); 
+                
 
             }
             catch (Exception)

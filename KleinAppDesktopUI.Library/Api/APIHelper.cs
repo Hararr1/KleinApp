@@ -39,7 +39,7 @@ namespace KleinAppDesktopUI.Library.Api
                 new KeyValuePair<string, string>("Email",email),
                 new KeyValuePair<string, string>("Password",password),
                 new KeyValuePair<string, string>("ConfirmPassword",confirmpassword)
-            });
+            }); 
             using (HttpResponseMessage response = await ApiClient.PostAsync("/api/Account/Register", data))
             {
                 if(response.IsSuccessStatusCode)

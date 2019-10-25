@@ -1,4 +1,5 @@
 ﻿using KleinAppDesktopUI.Library.Models;
+using KleinMessage.Models;
 using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,11 @@ namespace KleinMessage.WorkSpace.Models
         private string url = ConfigurationManager.AppSettings["server"];
 
 
-        public event Action<string, string> MessageHandling;
-        public event Action<string> TimeHandling;
-
+        public event EventHandler LogOnServerHandler;
+        public event EventHandler IsSomebodyLoggedHandler;
+        public event EventHandler SendTextMessageHandler;
+        public event EventHandler TakeTextMessageHandler;
+        public event EventHandler TimeHandler;
 
 
 
@@ -27,32 +30,49 @@ namespace KleinMessage.WorkSpace.Models
             _serverConnection._connection = new HubConnection(url);
             _serverConnection._proxy = _serverConnection._connection.CreateHubProxy("ChatHub");
 
-            _serverConnection._proxy.On<string, string>("BroadcastTextMessage", (n, m) => MessageHandling?.Invoke(n, m));
-            _serverConnection._proxy.On<string, string>("UnicastTextMessage", (n, m) => MessageHandling?.Invoke(n, m));
-            _serverConnection._proxy.On<string>("displayTime", (time) => TimeHandling?.Invoke(time));
+            _serverConnection._proxy.On<User>("WhoIsLogin", (u) => IsSomebodyLoggedHandler?.Invoke(u, EventArgs.Empty));
+            //_serverConnection._proxy.On<List<User>>("LogOnSever", (users) => LogOnServerHandler?.Invoke(users, EventArgs.Empty));
+            //_serverConnection._proxy.On<User>("WhoIsLogin", (u) => IsSomebodyLoggedHandler?.Invoke(u, EventArgs.Empty));
+            //_serverConnection._proxy.On<List<User>>("LogOnSever", (users) => LogOnServerHandler?.Invoke(users, EventArgs.Empty));
+            //_serverConnection._proxy.On<User>("WhoIsLogin", (u) => IsSomebodyLoggedHandler?.Invoke(u, EventArgs.Empty));
+
+            //_serverConnection._proxy.On<User>("WhoIsLogin",(u) => IsSomebodyLoggedHandler?.Invoke(u, EventArgs.Empty));
+            ////_serverConnection._proxy.On<string, string>("BroadcastTextMessage", (user, message) => SendTextMessageHandler?.Invoke(new object[] {user, message}, EventArgs.Empty));
+            ////_serverConnection._proxy.On<string, string>("UnicastTextMessage", ()
+
+            ////_serverConnection._proxy.On<string, string>("UnicastTextMessage", (n, m) => MessageHandling?.Invoke(n, m));
+            ////_serverConnection._proxy.On<string>("displayTime", (time) => TimeHandling?.Invoke(time));
             await _serverConnection._connection.Start();
         }
 
-        public async Task SendUnicastMessageAsync(string friend, string message)
+        public async Task<List<User>> LogOnServer()
         {
-            await _serverConnection._proxy.Invoke("UnicastImageMessage", new object[] { friend, message });
+            List<User> UsersList = await _serverConnection._proxy.Invoke<List<User>>("LogInInvokeServer", new object[] { ApplicationItemsCollection.Logged?.FirstName, ApplicationItemsCollection.Logged?.UserId } );
+
+            return UsersList;
         }
 
-        public async Task SendBroadcastMessageAsync(string msg)
-        {
-            await _serverConnection._proxy.Invoke("BroadcastTextMessage", msg);
-        }
-        public async Task LogIn()
-        {
-            if(ApplicationItemsCollection.Logged.FirstName != null)
-            {
-             await _serverConnection._proxy.Invoke("LogOnSever", ApplicationItemsCollection.Logged.FirstName);
-            }
+        //public async Task SendUnicastMessageAsync(string friend, string message)
+        //{
+        //    await _serverConnection._proxy.Invoke("UnicastTextMessage", new object[] { friend, message });
+        //}
 
-        }
-        public async Task GetTime()
-        {          
-                await _serverConnection._proxy.Invoke("ServerTime");         
-        }
+        //public async Task SendBroadcastMessageAsync(string msg)
+        //{
+        //    await _serverConnection._proxy.Invoke("BroadcastTextMessage", msg);
+        //}
+        //public async Task<List<User>> LogIn()
+        //{
+        //    if(ApplicationItemsCollection.Logged.FirstName != null)
+        //    {
+        //     return  await _serverConnection._proxy.Invoke<List<User>>("LogOnSever", ApplicationItemsCollection.Logged.FirstName);
+        //    }
+        //    return null;
+
+        //}
+        //public async Task<string> GetTime()
+        //{          
+        //     return  await _serverConnection._proxy.Invoke<string>("ServerTime");         
+        //}
     }
 }

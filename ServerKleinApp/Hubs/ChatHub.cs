@@ -27,25 +27,27 @@ namespace ServerKleinApp.Hubs
             } while (true);
         }
 
-
-        public void LogOnSever(string username)
+        public List<User> LogInInvokeServer(string username, string IDApi)
         {
             if (ChatClients.ContainsKey(username) == false)
             {
-                User user = new User { ID = Context.ConnectionId, Name = username };
+                User user = new User { ID = Context.ConnectionId, Name = username, IDApi = IDApi};
                 bool isAdded = ChatClients.TryAdd(username, user);
+                List<User> users = new List<User>(ChatClients.Values);
+
                 if(isAdded == false)
                 {
-                    // return "nie udało się połączyć z serwerem!";
-                    return;
+                    return null;
                 }
-                Clients.CallerState.UserName = username;
-                
-            Console.WriteLine($"{username} is connected", Console.ForegroundColor = ConsoleColor.Green);
-            }
-            return;
-        }
 
+                Clients.CallerState.UserName = username;        
+                Clients.Others.WhoIsLogin(user);
+                Console.WriteLine($"{username} is connected", Console.ForegroundColor = ConsoleColor.Green);
+
+                return users;
+            }
+            return null;
+        }
         public override Task OnDisconnected(bool stopCalled)
         {
             var userName = ChatClients.SingleOrDefault((c) => c.Value.ID == Context.ConnectionId).Key;
@@ -56,7 +58,6 @@ namespace ServerKleinApp.Hubs
             }
             return base.OnDisconnected(stopCalled);
         }
-
         public override Task OnReconnected()
         {
             var userName = ChatClients.SingleOrDefault((c) => c.Value.ID == Context.ConnectionId).Key;
@@ -67,26 +68,30 @@ namespace ServerKleinApp.Hubs
             }
             return base.OnReconnected();
         }
+        //public void UnicastTextMessage(string recepient, string message)
+        //{
+        //    Console.WriteLine("COS SIE DZIEJE");
 
-        public void UnicastTextMessage(string recepient, string message)
-        {
-            var sender = Clients.CallerState.UserName;
-            if (!string.IsNullOrEmpty(sender) && recepient != sender &&
-                !string.IsNullOrEmpty(message) && ChatClients.ContainsKey(recepient))
-            {
-                User client = new User();
-                ChatClients.TryGetValue(recepient, out client);
-                Clients.Client(client.ID).UnicastTextMessage(sender, message);
-            }
-        }
-        public void BroadcastTextMessage(string message)
-        {
-            var name = Clients.CallerState.UserName;
-            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(message))
-            {
-                Clients.Others.BroadcastTextMessage(name, message);
-            }
-        }
+        //    var sender = Clients.CallerState.UserName;
+        //    if (!string.IsNullOrEmpty(sender) && recepient != sender &&
+        //        !string.IsNullOrEmpty(message) && ChatClients.ContainsKey(recepient))
+        //    {
+        //        User client = new User();
+        //        ChatClients.TryGetValue(recepient, out client);
+        //        Clients.Client(client.ID).UnicastTextMessage(sender, message);
+        //    }
+           
+        //}
+        //public void BroadcastTextMessage(string message)
+        //{
+        //    var name = Clients.CallerState.UserName;
+        //    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(message))
+        //    {
+        //        Clients.Others.BroadcastTextMessage(name, message);
+        //    }
+        //    Console.WriteLine("Ktoś odbiera");
+        //}
+       
 
 
 

@@ -9,9 +9,8 @@ namespace KleinMessage.Models
 {
    public class MessageStructure
     {
-        public string Friend { get; set; }
-        public ObservableCollection<MessageContentStructure> Messages { get; set; }
+        public User Friend { get; set; }
 
-
+        public List<MessageContentStructure> Messages { get; set; }      
     }
 }
