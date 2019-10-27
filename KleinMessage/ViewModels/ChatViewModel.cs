@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -29,7 +30,7 @@ namespace KleinMessage.ViewModels
         }
 
 
-        private MessageStructure currentMessage = new MessageStructure();
+        private MessageStructure currentMessage;
 
         public MessageStructure CurrentMessage
         {
@@ -44,8 +45,18 @@ namespace KleinMessage.ViewModels
         public ChatViewModel(IService chatService)
         {
             RegistryMessages = new ObservableCollection<MessageStructure>();
+            CurrentMessage = new MessageStructure();
+
             this.chatService = chatService;
             this.chatService.IsSomebodyLoggedHandler += chatService_IsSomebodyLoggedHandler;
+            this.chatService.TakeTextMessageHandler += ChatService_TakeTextMessageHandler;
+        }
+
+        private void ChatService_TakeTextMessageHandler(object sender, EventArgs e)
+        {
+            User user = (User)((object[])sender)[0];
+            string message = ((object[])sender)[1].ToString();
+            //ToDo
         }
 
         private void chatService_IsSomebodyLoggedHandler(object sender, EventArgs e)
@@ -57,26 +68,6 @@ namespace KleinMessage.ViewModels
                 AddNewFriend(userConnected);
             }
         }
-
-        //private async Task NewTextMessage(string friend, string message)
-        //{
-
-        //    var sender = RegistryMessages.Where(x => x.Friend == friend).FirstOrDefault();
-        //    IsFriendChoosen(sender.Friend);
-
-        //    MessageContentStructure msg = new MessageContentStructure() { Flag = true, Content = message };
-
-
-
-        //           await Task.Run(()=> CurrentMessage.Messages.Add(msg));
-
-
-
-
-
-        //}
-
-
         public string MessageContent
         {
             get { return _messageContent; }
@@ -87,58 +78,42 @@ namespace KleinMessage.ViewModels
             }
         }
 
-
-        
-
-
-        //public async Task<bool> SendMessageButton()
-        //{
-        //    string message = MessageContent;
-        //    string friend = CurrentMessage.Friend;
-
-        //    try
-        //    {
-
-        //        await Task.Run(() => _chatService.SendUnicastMessageAsync(friend, message));
-        //        return true;
-
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        return false;
-        //    }
-        //    finally
-        //    {
-        //        MessageContentStructure msg = new MessageContentStructure() { Flag = true, Content = message };
-        //        CurrentMessage.Messages.Add(msg);
-        //        MessageContent = "";
-        //    }
-        //}
-
-
-        //   ApplicationItemsCollection.AllMessages[0].Messages.Add(d);
-
-
-
-
-        // TODO        
-
-        public void IsFriendChoosen(string text)
+        public async Task SendMessageButton()
         {
+            string message = MessageContent;
+            string IDApi = CurrentMessage.Friend.IDApi;
+            string username = CurrentMessage.Friend.Name;
 
-           // CurrentMessage = RegistryMessages.Where(x => x.Friend == text).SingleOrDefault();
+            try
+            {
+                await chatService.SendMessage(ApplicationItemsCollection.Logged.UserId, username, IDApi, message);
 
-            //TODO When client choosen friend set Message2 to appropriate in AppItemsColl.. 
+                CurrentMessage.Messages.Add(new MessageContentStructure()
+                {
+                    Content = message,
+                    Flag = false
+                });
 
-        }
 
-       public async Task LoadData()
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.HResult.ToString());
+            }
+            finally
+            {
+                MessageContentStructure msg = new MessageContentStructure() { Flag = true, Content = message };
+                CurrentMessage.Messages.Add(msg);
+                MessageContent = "";
+            }
+        }    
+
+        public async Task LoadData()
         {
             if (ApplicationItemsCollection.Logged != null)
             {
-               await chatService.Connected();
-               List<User> users = await chatService.LogOnServer();
+                await chatService.Connected();
+                List<User> users = await chatService.LogOnServer();
 
                 foreach (User user in users)
                 {
@@ -163,6 +138,8 @@ namespace KleinMessage.ViewModels
                 RegistryMessages.Add(messageStructure);
             });
         }
+
+
 
 
 

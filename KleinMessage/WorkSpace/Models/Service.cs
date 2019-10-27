@@ -16,11 +16,11 @@ namespace KleinMessage.WorkSpace.Models
         private string url = ConfigurationManager.AppSettings["server"];
 
 
-        public event EventHandler LogOnServerHandler;
+        //public event EventHandler LogOnServerHandler;
         public event EventHandler IsSomebodyLoggedHandler;
-        public event EventHandler SendTextMessageHandler;
+        //public event EventHandler SendTextMessageHandler;
         public event EventHandler TakeTextMessageHandler;
-        public event EventHandler TimeHandler;
+        //public event EventHandler TimeHandler;
 
 
 
@@ -31,13 +31,15 @@ namespace KleinMessage.WorkSpace.Models
             _serverConnection._proxy = _serverConnection._connection.CreateHubProxy("ChatHub");
 
             _serverConnection._proxy.On<User>("WhoIsLogin", (u) => IsSomebodyLoggedHandler?.Invoke(u, EventArgs.Empty));
+            _serverConnection._proxy.On<User, string>("TakeMessage", (user, message) => TakeTextMessageHandler?.Invoke(new object[] { user, message }, EventArgs.Empty));
+
             //_serverConnection._proxy.On<List<User>>("LogOnSever", (users) => LogOnServerHandler?.Invoke(users, EventArgs.Empty));
             //_serverConnection._proxy.On<User>("WhoIsLogin", (u) => IsSomebodyLoggedHandler?.Invoke(u, EventArgs.Empty));
             //_serverConnection._proxy.On<List<User>>("LogOnSever", (users) => LogOnServerHandler?.Invoke(users, EventArgs.Empty));
             //_serverConnection._proxy.On<User>("WhoIsLogin", (u) => IsSomebodyLoggedHandler?.Invoke(u, EventArgs.Empty));
 
             //_serverConnection._proxy.On<User>("WhoIsLogin",(u) => IsSomebodyLoggedHandler?.Invoke(u, EventArgs.Empty));
-            ////_serverConnection._proxy.On<string, string>("BroadcastTextMessage", (user, message) => SendTextMessageHandler?.Invoke(new object[] {user, message}, EventArgs.Empty));
+
             ////_serverConnection._proxy.On<string, string>("UnicastTextMessage", ()
 
             ////_serverConnection._proxy.On<string, string>("UnicastTextMessage", (n, m) => MessageHandling?.Invoke(n, m));
@@ -52,24 +54,17 @@ namespace KleinMessage.WorkSpace.Models
             return UsersList;
         }
 
-        //public async Task SendUnicastMessageAsync(string friend, string message)
-        //{
-        //    await _serverConnection._proxy.Invoke("UnicastTextMessage", new object[] { friend, message });
-        //}
+        public async Task SendMessage(string whoSendMessageIDApi, string WhoTakeMessage, string IDApi, string message)
+        {
+            await _serverConnection._proxy.Invoke("SendMessage", new object[] { whoSendMessageIDApi,  WhoTakeMessage,  IDApi,  message });
+
+        }
 
         //public async Task SendBroadcastMessageAsync(string msg)
         //{
         //    await _serverConnection._proxy.Invoke("BroadcastTextMessage", msg);
         //}
-        //public async Task<List<User>> LogIn()
-        //{
-        //    if(ApplicationItemsCollection.Logged.FirstName != null)
-        //    {
-        //     return  await _serverConnection._proxy.Invoke<List<User>>("LogOnSever", ApplicationItemsCollection.Logged.FirstName);
-        //    }
-        //    return null;
-
-        //}
+  
         //public async Task<string> GetTime()
         //{          
         //     return  await _serverConnection._proxy.Invoke<string>("ServerTime");         

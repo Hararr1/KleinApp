@@ -10,8 +10,8 @@ namespace KleinMessage.Models
     {
         /*
          Flag is using to define directons of message.
-         Default: 0 - client message
-                  1 - friend message
+         Default: false - client message
+                  true - friend message
         */
         public bool Flag { get; set; }
         public string Content { get; set; } 

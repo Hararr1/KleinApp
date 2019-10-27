@@ -48,7 +48,8 @@
 
             <ListView 
                 x:Name="RegistryMessages" 
-                Margin="5 10 5 10" >
+                Margin="5 10 5 10"
+                SelectedItem="{Binding Path=CurrentMessage}">
                     <ListView.View>
                         <GridView>
                         <GridViewColumn 

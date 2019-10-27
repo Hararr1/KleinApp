@@ -29,10 +29,10 @@ namespace ServerKleinApp.Hubs
 
         public List<User> LogInInvokeServer(string username, string IDApi)
         {
-            if (ChatClients.ContainsKey(username) == false)
+            if (ChatClients.ContainsKey(IDApi) == false)
             {
                 User user = new User { ID = Context.ConnectionId, Name = username, IDApi = IDApi};
-                bool isAdded = ChatClients.TryAdd(username, user);
+                bool isAdded = ChatClients.TryAdd(IDApi, user);
                 List<User> users = new List<User>(ChatClients.Values);
 
                 if(isAdded == false)
@@ -68,20 +68,26 @@ namespace ServerKleinApp.Hubs
             }
             return base.OnReconnected();
         }
-        //public void UnicastTextMessage(string recepient, string message)
-        //{
-        //    Console.WriteLine("COS SIE DZIEJE");
 
-        //    var sender = Clients.CallerState.UserName;
-        //    if (!string.IsNullOrEmpty(sender) && recepient != sender &&
-        //        !string.IsNullOrEmpty(message) && ChatClients.ContainsKey(recepient))
-        //    {
-        //        User client = new User();
-        //        ChatClients.TryGetValue(recepient, out client);
-        //        Clients.Client(client.ID).UnicastTextMessage(sender, message);
-        //    }
-           
-        //}
+        public void SendMessage(string whoSendMessageIDApi, string WhoTakeMessage, string IDApi, string message)
+        {
+            User whoSendMessage = new User();
+            ChatClients.TryGetValue(whoSendMessageIDApi, out whoSendMessage);
+
+            //var sender = Clients.CallerState.UserName;
+            //var user = Clients.CallerState;
+
+            if ( WhoTakeMessage != whoSendMessage.Name &&
+                string.IsNullOrEmpty(message) == false && ChatClients.ContainsKey(IDApi))
+            {
+                User client = new User();
+                ChatClients.TryGetValue(IDApi, out client);
+                Clients.Client(client.ID).TakeMessage(whoSendMessage, message);
+
+                Console.WriteLine($"{whoSendMessage.Name} send message to {client.Name}");
+            }
+
+        }
         //public void BroadcastTextMessage(string message)
         //{
         //    var name = Clients.CallerState.UserName;
@@ -91,7 +97,7 @@ namespace ServerKleinApp.Hubs
         //    }
         //    Console.WriteLine("Ktoś odbiera");
         //}
-       
+
 
 
 
