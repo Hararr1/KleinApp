@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace KleinMessage.Models
     {
         public User Friend { get; set; }
 
-        public List<MessageContentStructure> Messages { get; set; }      
+        public BindableCollection<MessageContentStructure> Messages { get; set; }      
     }
 }

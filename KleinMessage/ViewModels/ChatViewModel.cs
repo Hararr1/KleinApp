@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -14,12 +13,12 @@ namespace KleinMessage.ViewModels
     public class ChatViewModel : Screen
     {
 
-        private string _messageContent;
+        private string messageContent;
         private IService chatService;
-        private ObservableCollection<MessageStructure> registryMessages;
+        private BindableCollection<MessageStructure> registryMessages;
 
 
-        public ObservableCollection<MessageStructure> RegistryMessages
+        public BindableCollection<MessageStructure> RegistryMessages
         {
             get { return registryMessages; }
             set
@@ -44,7 +43,7 @@ namespace KleinMessage.ViewModels
 
         public ChatViewModel(IService chatService)
         {
-            RegistryMessages = new ObservableCollection<MessageStructure>();
+            RegistryMessages = new BindableCollection<MessageStructure>();
             CurrentMessage = new MessageStructure();
 
             this.chatService = chatService;
@@ -56,24 +55,36 @@ namespace KleinMessage.ViewModels
         {
             User user = (User)((object[])sender)[0];
             string message = ((object[])sender)[1].ToString();
-            //ToDo
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                RegistryMessages
+                .First(x => x.Friend.IDApi == user.IDApi)
+                .Messages
+                .Add(new MessageContentStructure
+                {
+                    Content = message,
+                    Flag = true
+                });
+            });
         }
 
         private void chatService_IsSomebodyLoggedHandler(object sender, EventArgs e)
         {
             User userConnected = sender as User;
 
-            if (RegistryMessages.FirstOrDefault(x => x.Friend == userConnected) == null)
+            if (RegistryMessages
+                .FirstOrDefault(x => x.Friend == userConnected) == null)
             {
                 AddNewFriend(userConnected);
             }
         }
         public string MessageContent
         {
-            get { return _messageContent; }
+            get { return messageContent; }
             set
             {
-                _messageContent = value;
+                messageContent = value;
                 NotifyOfPropertyChange(() => MessageContent);
             }
         }
@@ -87,26 +98,18 @@ namespace KleinMessage.ViewModels
             try
             {
                 await chatService.SendMessage(ApplicationItemsCollection.Logged.UserId, username, IDApi, message);
-
-                CurrentMessage.Messages.Add(new MessageContentStructure()
-                {
-                    Content = message,
-                    Flag = false
-                });
-
-
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.HResult.ToString());
+                MessageBox.Show($"It's problem to send message! This is a code: {e.HResult.ToString()}");
             }
             finally
             {
-                MessageContentStructure msg = new MessageContentStructure() { Flag = true, Content = message };
+                MessageContentStructure msg = new MessageContentStructure() { Flag = false, Content = message };
                 CurrentMessage.Messages.Add(msg);
                 MessageContent = "";
             }
-        }    
+        }
 
         public async Task LoadData()
         {
@@ -130,7 +133,7 @@ namespace KleinMessage.ViewModels
             MessageStructure messageStructure = new MessageStructure()
             {
                 Friend = user,
-                Messages = new List<MessageContentStructure>()
+                Messages = new BindableCollection<MessageContentStructure>()
             };
 
             Application.Current.Dispatcher.Invoke(() =>

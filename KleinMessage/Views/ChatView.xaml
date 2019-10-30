@@ -30,15 +30,13 @@
         <Grid Grid.Column="1" Margin="10" Background="White" >
             <ScrollViewer Margin="20" Background="Transparent" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical" Margin="10">
-                    <ListView 
-                        x:Name="CurrentMessage"
-                        Background="Transparent">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Messages.Content, UpdateSourceTrigger=PropertyChanged}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <ItemsControl  ItemsSource="{Binding CurrentMessage.Messages}">
+                        <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                                <TextBlock Text="{Binding Content}"/>
+                        </DataTemplate>
+                     </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
             </ScrollViewer>
            

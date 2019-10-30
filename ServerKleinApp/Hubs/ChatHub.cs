@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
 using ServerKleinApp.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,9 +18,9 @@ namespace ServerKleinApp.Hubs
         {
             do
             {
+
                 Clients.All.displayTime($"{DateTime.Now.ToString("H:mm:ss")}");
                 Thread.Sleep(TimeSpan.FromSeconds(1));
-
 
             } while (true);
         }
@@ -48,6 +46,23 @@ namespace ServerKleinApp.Hubs
             }
             return null;
         }
+
+        public void SendMessage(string whoSendMessageIDApi, string WhoTakeMessage, string IDApi, string message)
+        {
+            User whoSendMessage = new User();
+            ChatClients.TryGetValue(whoSendMessageIDApi, out whoSendMessage);
+
+            if ( WhoTakeMessage != whoSendMessage.Name &&
+                string.IsNullOrEmpty(message) == false && ChatClients.ContainsKey(IDApi))
+            {
+                User client = new User();
+                ChatClients.TryGetValue(IDApi, out client);
+                Clients.Client(client.ID).TakeMessage(whoSendMessage, message);
+
+                Console.WriteLine($"{whoSendMessage.Name} send message to {client.Name}");
+            }
+        }
+
         public override Task OnDisconnected(bool stopCalled)
         {
             var userName = ChatClients.SingleOrDefault((c) => c.Value.ID == Context.ConnectionId).Key;
@@ -69,25 +84,6 @@ namespace ServerKleinApp.Hubs
             return base.OnReconnected();
         }
 
-        public void SendMessage(string whoSendMessageIDApi, string WhoTakeMessage, string IDApi, string message)
-        {
-            User whoSendMessage = new User();
-            ChatClients.TryGetValue(whoSendMessageIDApi, out whoSendMessage);
-
-            //var sender = Clients.CallerState.UserName;
-            //var user = Clients.CallerState;
-
-            if ( WhoTakeMessage != whoSendMessage.Name &&
-                string.IsNullOrEmpty(message) == false && ChatClients.ContainsKey(IDApi))
-            {
-                User client = new User();
-                ChatClients.TryGetValue(IDApi, out client);
-                Clients.Client(client.ID).TakeMessage(whoSendMessage, message);
-
-                Console.WriteLine($"{whoSendMessage.Name} send message to {client.Name}");
-            }
-
-        }
         //public void BroadcastTextMessage(string message)
         //{
         //    var name = Clients.CallerState.UserName;
