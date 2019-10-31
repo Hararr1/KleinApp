@@ -10,12 +10,12 @@ namespace KleinMessage.ViewModels
 {
     public class LoginViewModel : Screen
     {
-        private string _username= "halo@wp.pl";
+        private string _username = "halo@wp.pl";
         private string _password = "Herbatka16!";
         private IAPIHelper _apiHelper;
         private IEventAggregator _events;
         private string _requestMessage;
-       
+
         public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator events, ILoggedInUserModel user, IConnectionToServerModel serverModel)
         {
             _apiHelper = aPIHelper;
@@ -48,14 +48,14 @@ namespace KleinMessage.ViewModels
             {
                 bool output = false;
 
-                if(RequestMessage?.Length > 0 )
+                if (RequestMessage?.Length > 0)
                 {
                     output = true;
                 }
 
                 return output;
             }
-           
+
         }
         public string RequestMessage
         {
@@ -75,12 +75,12 @@ namespace KleinMessage.ViewModels
                 bool output = false;
                 if (UsernameTextBox?.Length > 0 && PasswordTextBox?.Length > 0)
                 {
-                    output= true;
+                    output = true;
 
                 }
                 return output;
             }
-               
+
         }
 
 
@@ -89,11 +89,16 @@ namespace KleinMessage.ViewModels
         {
             try
             {
+#if DEBUG
+                ApplicationItemsCollection.Logged = new LoggedInUserModel() { UserId = "123", CreatedDate = DateTime.Now, EmailAddress = "debug@wp.pl", FirstName = "debug", LastName = "debug" };
+                _events.PublishOnUIThread(new LogOnEvent());
+#endif
+
                 RequestMessage = "";
                 var result = await _apiHelper.Authenticate(UsernameTextBox, PasswordTextBox);
                 ApplicationItemsCollection.Logged = await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
-               _events.PublishOnUIThread(new LogOnEvent()); 
-                
+                _events.PublishOnUIThread(new LogOnEvent());
+
 
             }
             catch (Exception)

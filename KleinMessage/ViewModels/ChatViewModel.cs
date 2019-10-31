@@ -1,12 +1,15 @@
 ﻿using Caliburn.Micro;
 using KleinMessage.Models;
+using KleinMessage.Views;
 using KleinMessage.WorkSpace.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace KleinMessage.ViewModels
 {
@@ -16,6 +19,8 @@ namespace KleinMessage.ViewModels
         private string messageContent;
         private IService chatService;
         private BindableCollection<MessageStructure> registryMessages;
+
+
 
 
         public BindableCollection<MessageStructure> RegistryMessages
@@ -142,7 +147,12 @@ namespace KleinMessage.ViewModels
             });
         }
 
+        public void ShowHideFriendList()
+        {
+            GridLengthConverter converter = new GridLengthConverter();
+            ((Application.Current.MainWindow as ShellView).ActiveItem.Content as ChatView).FriendListColumn.Width = (GridLength)converter.ConvertFromString("0");
 
+        }
 
 
 
