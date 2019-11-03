@@ -5,50 +5,64 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KleinMessage.Controls"
              mc:Ignorable="d" 
-             d:DesignWidth="150">
+             d:DesignWidth="180" Foreground="White">
     
     <Border Padding="5">
         
-        <Border.Background>
-            <LinearGradientBrush>
-                <GradientStop Color="#EFEFEF" Offset="0.0"/>
-                <GradientStop Color="#52FFEE" Offset="1.0"/>
-            </LinearGradientBrush>
-        </Border.Background>
+      
 
         <Border>
             
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="3" />
+                    <ColumnDefinition Width="50" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <Border CornerRadius="5" BorderThickness="1" BorderBrush="Black" Background="Transparent">
+                <Label Background="Green" Width="3" Height="40"/>
+
+                <Grid Grid.Column="1" Margin="4 0 0 0">
+                    <Border 
+                        Width="45"
+                        Height="45"
+                        CornerRadius="30" 
+                        BorderThickness="3" 
+                        BorderBrush="#FF6FC2E9" 
+                        Background="Transparent">
                         
                         <TextBlock 
-                            Text="LK" Foreground="Red" 
-                            FontSize="4" HorizontalAlignment="Center" 
+                            Text="LK"
+                            FontSize="25" 
+                            Foreground="#FF3399FF"
+                            HorizontalAlignment="Center" 
                             VerticalAlignment="Center" />
       
                     </Border>
 
                     <Border 
-                        CornerRadius="5" 
-                        Background="Green"
-                        Height="3" 
-                        Width="3"
-                        Margin="6 7 0 0" />
+                        CornerRadius="8" 
+                        Background="#136F63"
+                        Height="15" 
+                        Width="15"
+                        Margin="30 35 0 0" />
                 </Grid>
 
-                <Grid Grid.Column="1" Margin="1">
-                    <TextBlock 
-                        Text="Test text message"  
-                        FontSize="5"
+                <Grid Grid.Column="2">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock 
+                        Text="Test text message"
+                        
+                        FontSize="15"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Center" />
+
+                        <Label Height="0.5" Background="#FFA2A4A5" />
+                    </StackPanel>
+                        
+                    
+                    
                 </Grid>
 
 

@@ -89,10 +89,10 @@ namespace KleinMessage.ViewModels
         {
             try
             {
-#if DEBUG
-                ApplicationItemsCollection.Logged = new LoggedInUserModel() { UserId = "123", CreatedDate = DateTime.Now, EmailAddress = "debug@wp.pl", FirstName = "debug", LastName = "debug" };
-                _events.PublishOnUIThread(new LogOnEvent());
-#endif
+//#if DEBUG
+//                ApplicationItemsCollection.Logged = new LoggedInUserModel() { UserId = "123", CreatedDate = DateTime.Now, EmailAddress = "debug@wp.pl", FirstName = "debug", LastName = "debug" };
+//                _events.PublishOnUIThread(new LogOnEvent());
+//#endif
 
                 RequestMessage = "";
                 var result = await _apiHelper.Authenticate(UsernameTextBox, PasswordTextBox);
