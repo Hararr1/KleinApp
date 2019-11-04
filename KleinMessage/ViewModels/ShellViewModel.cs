@@ -1,6 +1,8 @@
 ﻿using Caliburn.Micro;
 using KleinMessage.EventModels;
+using KleinMessage.Views;
 using KleinMessage.WorkSpace.Models;
+using System.Windows;
 using System.Windows.Media;
 
 namespace KleinMessage.ViewModels
@@ -15,6 +17,7 @@ namespace KleinMessage.ViewModels
         private SettingsViewModel _settingsVM;
         private SimpleContainer _container;
         private string _serverTime;
+        private bool IsActiveFriendList;
 
         public bool IsErrorVisible
         {
@@ -91,6 +94,7 @@ namespace KleinMessage.ViewModels
             _settingsVM = settingsVM;
             _container = container;
             _events.Subscribe(this);
+            IsActiveFriendList = true;
 
             ActivateItem(_container.GetInstance<LoginViewModel>());
         }
@@ -114,6 +118,28 @@ namespace KleinMessage.ViewModels
         #endregion
 
         #region Buttons
+        public void ShowHideFriendList()
+        {
+            if ((Application.Current.MainWindow as ShellView).ActiveItem.Content is ChatView)
+            {
+                if (IsActiveFriendList)
+                {
+                    GridLengthConverter converter = new GridLengthConverter();
+                    ((Application.Current.MainWindow as ShellView).ActiveItem.Content as ChatView).FriendListColumn.Width = (GridLength)converter.ConvertFromString("0");
+                    IsActiveFriendList = false;
+
+                }
+                else
+                {
+                    GridLengthConverter converter = new GridLengthConverter();
+                    ((Application.Current.MainWindow as ShellView).ActiveItem.Content as ChatView).FriendListColumn.Width = (GridLength)converter.ConvertFromString("250");
+                    IsActiveFriendList = true;
+                }
+            }
+
+
+        }
+
         public void SettingsButton()
         {
             ActivateItem(_container.GetInstance<SettingsViewModel>());

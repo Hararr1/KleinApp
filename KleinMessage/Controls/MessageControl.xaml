@@ -4,13 +4,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="300" Foreground="White">
+  
     <Border Padding="5" Background="Transparent">
         <Border CornerRadius="8" Padding="15" Background="#FF3399FF" >
             <StackPanel>
-            <TextBlock Text="asdgjhasgdjhasgdjash" TextWrapping="Wrap"/>
-             <TextBlock FontSize="5" Text="10:30" HorizontalAlignment="Right" />
-            </StackPanel>
-            
+            <TextBlock Text="{Binding Messages.Content}" TextWrapping="Wrap"/>
+             <TextBlock FontSize="5" Text="{Binding }" HorizontalAlignment="Right" />
+            </StackPanel>            
         </Border>
     </Border>
  

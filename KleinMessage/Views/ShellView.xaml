@@ -22,8 +22,8 @@
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-           
-                <!--<Expander Header="Show / Hide" Background="Transparent"  
+
+            <!--<Expander Header="Show / Hide" Background="Transparent"  
                           Visibility="{Binding IsErrorVisible, 
                           Converter={StaticResource BooleanToVisibilityConverter},
                           FallbackValue = Show}"
@@ -32,38 +32,39 @@
             <Button
             Grid.Row="0"
             Grid.Column="0"
-            x:Name="ShowHideFriendList"   
-                Background="Red"
+            Margin="10"
+            x:Name="ShowHideFriendList"
             Style="{StaticResource noBackgroundButton}">
                 <StackPanel>
-                    <Image Source="/Assets/menuButton" RenderOptions.BitmapScalingMode="HighQuality" Width="40" Margin="15"/>
+                    <Image Source="/Assets/menuButton.png" RenderOptions.BitmapScalingMode="HighQuality" Width="50"/>
                 </StackPanel>
             </Button>
 
             <StackPanel 
                 Orientation="Horizontal" 
                 Grid.Column="2"
+                Grid.Row="0"
                 HorizontalAlignment="Right">
-                
+
                 <Button 
                     x:Name="ChatButton" 
                     Margin="20 5 15 10" 
                     Style="{StaticResource noBackgroundButton}">
-                    
+
                     <StackPanel>
-                        
+
                         <Image 
                             Source="/Assets/telegram-logo.png"
                             RenderOptions.BitmapScalingMode="HighQuality"
                             Width="40" 
                             Margin="0 10 0 0" />
-                        
+
                         <Label 
                             x:Name="chatLabel" 
                             Margin="0 10 0 0"
                             Background="{Binding ChatLabelBackground}" 
                             Height="1" />
-                        
+
                     </StackPanel>
                 </Button>
                 <!--<Button x:Name="searchButton" Margin="10 5 15 10" 
@@ -80,19 +81,19 @@
                     Margin="10 5 15 10" 
                     Style="{StaticResource noBackgroundButton}">
                     <StackPanel>
-                        
+
                         <Image 
                             Source="/Assets/two-settings-cogwheels.png" 
                             RenderOptions.BitmapScalingMode="HighQuality" 
                             Width="40" 
                             Margin="0 10 0 0"/>
-                        
+
                         <Label 
                             x:Name="settingsLabel" 
                             Margin="0 10 0 0"
                             Background="{Binding SettingsLabelBackground}" 
                             Height="1" />
-                        
+
                     </StackPanel>
                 </Button>
 
@@ -107,14 +108,8 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            
+
             <ContentControl Grid.Row="1" x:Name="ActiveItem" Grid.ColumnSpan="2" />
         </Grid>
-
-
-
-
-
-
     </Grid>
 </Window>

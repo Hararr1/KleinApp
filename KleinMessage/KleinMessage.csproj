@@ -216,7 +216,7 @@
     <Resource Include="Assets\two-settings-cogwheels.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\menuButton" />
+    <Resource Include="Assets\menuButton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

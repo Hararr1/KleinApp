@@ -69,7 +69,8 @@ namespace KleinMessage.ViewModels
                 .Add(new MessageContentStructure
                 {
                     Content = message,
-                    Flag = true
+                    Flag = true,
+                    Time = DateTime.Now.ToString("HH:mm:ss")
                 });
             });
         }
@@ -110,7 +111,12 @@ namespace KleinMessage.ViewModels
             }
             finally
             {
-                MessageContentStructure msg = new MessageContentStructure() { Flag = false, Content = message };
+                MessageContentStructure msg = new MessageContentStructure()
+                {
+                    Flag = false,
+                    Content = message,
+                    Time = DateTime.Now.ToString("HH:mm:ss")
+                };
                 CurrentMessage.Messages.Add(msg);
                 MessageContent = "";
             }
@@ -147,12 +153,7 @@ namespace KleinMessage.ViewModels
             });
         }
 
-        public void ShowHideFriendList()
-        {
-            GridLengthConverter converter = new GridLengthConverter();
-            ((Application.Current.MainWindow as ShellView).ActiveItem.Content as ChatView).FriendListColumn.Width = (GridLength)converter.ConvertFromString("0");
 
-        }
 
 
 
