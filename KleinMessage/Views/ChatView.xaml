@@ -90,10 +90,19 @@
                     </ListView.View>
                 </ListView>-->
 
-            <ItemsControl ItemsSource="{Binding RegistryMessages}"  Margin="5 10 5 10">
+            <ItemsControl  ItemsSource="{Binding RegistryMessages}"  Margin="5 10 5 10" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <message:FriendListControl/>
+                        <message:FriendListControl>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <cal:ActionMessage MethodName="ChangeCurrentMessage">
+                                        <cal:Parameter Value="{Binding Friend}" />
+                                    </cal:ActionMessage>
+                                                       
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </message:FriendListControl>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

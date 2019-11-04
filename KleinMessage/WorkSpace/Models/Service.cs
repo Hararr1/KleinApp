@@ -14,11 +14,7 @@ namespace KleinMessage.WorkSpace.Models
     {
         private IConnectionToServerModel _serverConnection;
         private string url = ConfigurationManager.AppSettings["server"];
-
-
-        //public event EventHandler LogOnServerHandler;
         public event EventHandler IsSomebodyLoggedHandler;
-        //public event EventHandler SendTextMessageHandler;
         public event EventHandler TakeTextMessageHandler;
         //public event EventHandler TimeHandler;
 
@@ -58,6 +54,11 @@ namespace KleinMessage.WorkSpace.Models
         {
             await _serverConnection._proxy.Invoke("SendMessage", new object[] { whoSendMessageIDApi,  WhoTakeMessage,  IDApi,  message });
 
+        }
+
+        public async Task Disconnected()
+        {
+            await _serverConnection._proxy.Invoke("Disconnect", ApplicationItemsCollection.Logged?.UserId);
         }
 
         //public async Task SendBroadcastMessageAsync(string msg)

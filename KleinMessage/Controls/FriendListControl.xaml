@@ -33,7 +33,7 @@
                         Background="Transparent">
                         
                         <TextBlock 
-                            Text="LK"
+                            Text="{Binding Friend.Initials, StringFormat={}{0:#}}"
                             FontSize="25" 
                             Foreground="#FF3399FF"
                             HorizontalAlignment="Center" 

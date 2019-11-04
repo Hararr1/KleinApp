@@ -24,5 +24,10 @@ namespace KleinMessage.Views
         {
             InitializeComponent();
         }
+
+        private void FriendListControl_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

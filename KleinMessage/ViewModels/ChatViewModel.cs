@@ -20,9 +20,6 @@ namespace KleinMessage.ViewModels
         private IService chatService;
         private BindableCollection<MessageStructure> registryMessages;
 
-
-
-
         public BindableCollection<MessageStructure> RegistryMessages
         {
             get { return registryMessages; }
@@ -153,7 +150,11 @@ namespace KleinMessage.ViewModels
             });
         }
 
-
+        public void ChangeCurrentMessage(User user)
+        {
+            var x = RegistryMessages.FirstOrDefault(f => f.Friend == user);
+            CurrentMessage = x;
+        }
 
 
 

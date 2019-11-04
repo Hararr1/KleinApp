@@ -30,16 +30,5 @@ namespace KleinMessage.Views
 
         }
 
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            //searchLabel.Background = new SolidColorBrush(Color.FromRgb(41, 216, 144));
-            chatLabel.Background = new SolidColorBrush(Colors.Black);
-            settingsLabel.Background = new SolidColorBrush(Colors.Black);
-        }
     }
 }

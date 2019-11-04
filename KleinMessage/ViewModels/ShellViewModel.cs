@@ -2,6 +2,7 @@
 using KleinMessage.EventModels;
 using KleinMessage.Views;
 using KleinMessage.WorkSpace.Models;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -10,13 +11,13 @@ namespace KleinMessage.ViewModels
     public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>, IHandle<RegisterOnEvent>, IHandle<RegisterSuccessEvent>
     {
 
-        private IEventAggregator _events;
-        private IService _chatService;
-        private ChatViewModel _chatVM;
-        private RegisterViewModel _registerVM;
-        private SettingsViewModel _settingsVM;
-        private SimpleContainer _container;
-        private string _serverTime;
+        private IEventAggregator events;
+        private IService chatservice;
+        private ChatViewModel chatVM;
+        private RegisterViewModel registerVM;
+        private SettingsViewModel settingsVM;
+        private SimpleContainer container;
+        private string serverTime;
         private bool IsActiveFriendList;
 
         public bool IsErrorVisible
@@ -48,18 +49,6 @@ namespace KleinMessage.ViewModels
             }
         }
 
-        private Brush searchLabelBackground;
-
-        public Brush SearchLabelBackground
-        {
-            get { return searchLabelBackground; }
-            set
-            {
-                searchLabelBackground = value;
-                NotifyOfPropertyChange(() => SearchLabelBackground);
-            }
-        }
-
         private Brush settingsLabelBackground;
 
         public Brush SettingsLabelBackground
@@ -87,16 +76,16 @@ namespace KleinMessage.ViewModels
 
         public ShellViewModel(IEventAggregator events, IService chatservice, ChatViewModel chatVM, RegisterViewModel regVW, SimpleContainer container, SettingsViewModel settingsVM)
         {
-            _events = events;
-            _chatService = chatservice;
-            _chatVM = chatVM;
-            _registerVM = regVW;
-            _settingsVM = settingsVM;
-            _container = container;
-            _events.Subscribe(this);
+            this.events = events;
+            this.chatservice = chatservice;
+            this.chatVM = chatVM;
+            registerVM = regVW;
+            this.settingsVM = settingsVM;
+            this.container = container;
+            this.events.Subscribe(this);
             IsActiveFriendList = true;
 
-            ActivateItem(_container.GetInstance<LoginViewModel>());
+            base.ActivateItem(this.container.GetInstance<LoginViewModel>());
         }
         #region Events
         public void Handle(LogOnEvent message)
@@ -107,12 +96,12 @@ namespace KleinMessage.ViewModels
 
         public void Handle(RegisterOnEvent message)
         {
-            ActivateItem(_registerVM);
+            ActivateItem(registerVM);
         }
 
         public void Handle(RegisterSuccessEvent message)
         {
-            ActivateItem(_container.GetInstance<LoginViewModel>());
+            ActivateItem(container.GetInstance<LoginViewModel>());
         }
 
         #endregion
@@ -142,24 +131,23 @@ namespace KleinMessage.ViewModels
 
         public void SettingsButton()
         {
-            ActivateItem(_container.GetInstance<SettingsViewModel>());
+            ActivateItem(container.GetInstance<SettingsViewModel>());
 
             SettingsLabelBackground = new SolidColorBrush(Color.FromRgb(41, 216, 144));
             ChatLabelBackground = new SolidColorBrush(Colors.Black);
-            SearchLabelBackground = new SolidColorBrush(Colors.Black);
         }
         public void ChatButton()
         {
-            ActivateItem(_container.GetInstance<ChatViewModel>());
+            ActivateItem(container.GetInstance<ChatViewModel>());
 
             ChatLabelBackground = new SolidColorBrush(Color.FromRgb(41, 216, 144));
-            SearchLabelBackground = new SolidColorBrush(Colors.Black);
             SettingsLabelBackground = new SolidColorBrush(Colors.Black);
         }
 
-        public void exitButton()
+        public async Task exitButton()
         {
-
+           await chatservice.Disconnected();
+           Application.Current.Shutdown();
         }
         #endregion
     }

@@ -8,8 +8,8 @@
     <Border Padding="5" Background="Transparent">
         <Border CornerRadius="8" Padding="15" Background="#FF3399FF" >
             <StackPanel>
-            <TextBlock Text="{Binding Messages.Content}" TextWrapping="Wrap"/>
-             <TextBlock FontSize="5" Text="{Binding }" HorizontalAlignment="Right" />
+                <TextBlock Text="{Binding Content}" FontSize="20" TextWrapping="Wrap" />
+                <TextBlock FontSize="10" Text="{Binding Time}" HorizontalAlignment="Right" />
             </StackPanel>            
         </Border>
     </Border>

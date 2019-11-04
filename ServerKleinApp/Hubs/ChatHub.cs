@@ -73,6 +73,14 @@ namespace ServerKleinApp.Hubs
             }
             return base.OnDisconnected(stopCalled);
         }
+        public async Task Disconnect(string IDApi)
+        {
+            await OnDisconnected(true);
+
+            User disconnectedUser = new User();
+            ChatClients.TryRemove(IDApi, out disconnectedUser);
+        }
+
         public override Task OnReconnected()
         {
             var userName = ChatClients.SingleOrDefault((c) => c.Value.ID == Context.ConnectionId).Key;
