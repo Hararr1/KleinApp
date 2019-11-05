@@ -45,12 +45,19 @@ namespace KleinMessage.ViewModels
 
         public ChatViewModel(IService chatService)
         {
-            RegistryMessages = new BindableCollection<MessageStructure>();
-            CurrentMessage = new MessageStructure();
-
             this.chatService = chatService;
-            this.chatService.IsSomebodyLoggedHandler += chatService_IsSomebodyLoggedHandler;
-            this.chatService.TakeTextMessageHandler += ChatService_TakeTextMessageHandler;
+        }
+
+        private void LoadDataUser()
+        {
+            if (ApplicationItemsCollection.IsActive)
+            {
+                RegistryMessages = new BindableCollection<MessageStructure>();
+                CurrentMessage = new MessageStructure();
+
+                this.chatService.IsSomebodyLoggedHandler += chatService_IsSomebodyLoggedHandler;
+                this.chatService.TakeTextMessageHandler += ChatService_TakeTextMessageHandler;
+            }
         }
 
         private void ChatService_TakeTextMessageHandler(object sender, EventArgs e)
@@ -121,7 +128,7 @@ namespace KleinMessage.ViewModels
 
         public async Task LoadData()
         {
-            if (ApplicationItemsCollection.Logged != null)
+            if (ApplicationItemsCollection.Logged != null && ApplicationItemsCollection.IsActive == false)
             {
                 await chatService.Connected();
                 List<User> users = await chatService.LogOnServer();
@@ -133,6 +140,8 @@ namespace KleinMessage.ViewModels
                         AddNewFriend(user);
                     }
                 }
+                LoadDataUser();
+                ApplicationItemsCollection.IsActive = true;
             }
         }
 

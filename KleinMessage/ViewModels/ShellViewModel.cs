@@ -91,7 +91,9 @@ namespace KleinMessage.ViewModels
         public void Handle(LogOnEvent message)
         {
             NotifyOfPropertyChange(() => IsErrorVisible);
+            ApplicationItemsCollection.IsActive = true;
             ChatButton();
+           
         }
 
         public void Handle(RegisterOnEvent message)

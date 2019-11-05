@@ -15,6 +15,7 @@ namespace KleinMessage
 {
     public static class ApplicationItemsCollection
     {
+        public static bool IsActive { get; set;  }
         public static ILoggedInUserModel Logged { get; set; }
 
     }

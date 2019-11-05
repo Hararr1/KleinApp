@@ -10,8 +10,10 @@ namespace KleinMessage.Models
                   true - friend message
         */
         public bool Flag { get; set; }
+
         public string Content { get; set; }
 
         public string Time { get; set; }
+
     }
 }

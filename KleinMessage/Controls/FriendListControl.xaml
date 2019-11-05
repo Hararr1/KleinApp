@@ -33,7 +33,7 @@
                         Background="Transparent">
                         
                         <TextBlock 
-                            Text="{Binding Friend.Initials, StringFormat={}{0:#}}"
+                            Text="{Binding Friend.Initials}"
                             FontSize="25" 
                             Foreground="#FF3399FF"
                             HorizontalAlignment="Center" 
@@ -52,10 +52,10 @@
                 <Grid Grid.Column="2">
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock 
-                        Text="Test text message"
-                        
+                        Text="{Binding LastMessageFromFriend}"                       
                         FontSize="15"
-                        HorizontalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="5 0 0 0"
                         VerticalAlignment="Center" />
 
                         <Label Height="0.5" Background="#FFA2A4A5" />
