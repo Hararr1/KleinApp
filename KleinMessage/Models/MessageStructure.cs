@@ -9,7 +9,6 @@ namespace KleinMessage.Models
     {
         public User Friend { get; set; }
 
-
         private BindableCollection<MessageContentStructure> messages;
 
         public BindableCollection<MessageContentStructure> Messages
@@ -28,8 +27,6 @@ namespace KleinMessage.Models
 
         private string lastMessageFromFriend;
 
-
-
         public string LastMessageFromFriend
         {
             get { return lastMessageFromFriend; }
@@ -40,7 +37,6 @@ namespace KleinMessage.Models
                 OnPropertyRaised("LastMessageFromFriend");
             }
         }
-
 
         private void Messages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

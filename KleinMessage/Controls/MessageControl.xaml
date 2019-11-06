@@ -6,7 +6,7 @@
              mc:Ignorable="d" d:DesignWidth="300" Foreground="White">
   
     <Border Padding="5" Background="Transparent">
-        <Border CornerRadius="8" Padding="15" Background="#FF3399FF" >
+        <Border CornerRadius="8" Padding="15" Background="{Binding Background}" Margin="{Binding Margin}" >
             <StackPanel>
                 <TextBlock Text="{Binding Content}" FontSize="20" TextWrapping="Wrap" />
                 <TextBlock FontSize="10" Text="{Binding Time}" HorizontalAlignment="Right" />

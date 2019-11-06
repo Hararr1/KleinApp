@@ -8,7 +8,7 @@
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:message="clr-namespace:KleinMessage.Controls"
-             d:DesignHeight="780" d:DesignWidth="700">
+             d:DesignHeight="780" d:DesignWidth="700" Foreground="White" FontSize="15">
 
 
 
@@ -55,7 +55,6 @@
                                     <cal:ActionMessage MethodName="ChangeCurrentMessage">
                                         <cal:Parameter Value="{Binding Friend}" />
                                     </cal:ActionMessage>
-                                                       
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </message:FriendListControl>
@@ -77,7 +76,10 @@
                 Width="350" 
                 TextWrapping="Wrap" 
                 AcceptsReturn="True"
-                MaxLength="150" />
+                Foreground="White"
+                FontSize="25"
+                MaxLength="150" 
+                cal:Message.Attach="[Event PreviewKeyDown] = [Action IsShiftClick($eventArgs)] " />
             
             <Button 
                 x:Name="SendMessageButton"
