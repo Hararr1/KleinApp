@@ -83,17 +83,15 @@ namespace KleinMessage.ViewModels
             this.settingsVM = settingsVM;
             this.container = container;
             this.events.Subscribe(this);
-            IsActiveFriendList = true;
 
+            ApplicationItemsCollection.RegistryMessages = new BindableCollection<Models.MessageStructure>();
             base.ActivateItem(this.container.GetInstance<LoginViewModel>());
         }
         #region Events
         public void Handle(LogOnEvent message)
         {
             NotifyOfPropertyChange(() => IsErrorVisible);
-            ApplicationItemsCollection.IsActive = true;
             ChatButton();
-           
         }
 
         public void Handle(RegisterOnEvent message)

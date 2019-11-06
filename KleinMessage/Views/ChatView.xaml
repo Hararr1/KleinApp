@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:stat="clr-namespace:KleinMessage"
              mc:Ignorable="d" 
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
@@ -45,52 +46,7 @@
         <!--cal:Message.Attach="[Event Click] = [Action IsFriendChoosen($eventArgs)]"-->
         <Grid Grid.Column="0" Grid.Row="0">
 
-            <!--<ListView 
-                x:Name="RegistryMessages" 
-                Margin="5 10 5 10"
-                SelectedItem="{Binding Path=CurrentMessage}">
-                    <ListView.View>
-                        <GridView>
-                        <GridViewColumn 
-                            HeaderContainerStyle="{StaticResource GridViewColumnHeader}" 
-                            Width="120">
-                            <GridViewColumn.Header>
-                                <StackPanel>
-                                    <TextBlock Text="Friends List"/>
-                                    <Label Height="2" Background="Black"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-
-                            <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                    <Border>
-                                        <Grid>
-                                            
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="30"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-
-                                            <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-                                                <TextBlock Text="{Binding Friend.Name}"/>
-                                                <Label Height="1" Background="Black"/>
-                                            </StackPanel>
-
-                                            <TextBlock 
-                                                Grid.Row="1" 
-                                                Text="{Binding Messages.Content}"/>
-                                        </Grid>
-                                    </Border>
-                                     
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
-
-            <ItemsControl  ItemsSource="{Binding RegistryMessages}"  Margin="5 10 5 10" >
+            <ItemsControl  ItemsSource="{Binding Source={x:Static stat:ApplicationItemsCollection.RegistryMessages}}"  Margin="5 10 5 10" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <message:FriendListControl>

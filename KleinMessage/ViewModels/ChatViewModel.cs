@@ -1,15 +1,11 @@
 ﻿using Caliburn.Micro;
 using KleinMessage.Models;
-using KleinMessage.Views;
 using KleinMessage.WorkSpace.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace KleinMessage.ViewModels
 {
@@ -18,6 +14,7 @@ namespace KleinMessage.ViewModels
 
         private string messageContent;
         private IService chatService;
+
         private BindableCollection<MessageStructure> registryMessages;
 
         public BindableCollection<MessageStructure> RegistryMessages
@@ -49,15 +46,12 @@ namespace KleinMessage.ViewModels
         }
 
         private void LoadDataUser()
-        {
-            if (ApplicationItemsCollection.IsActive)
-            {
+        {          
                 RegistryMessages = new BindableCollection<MessageStructure>();
                 CurrentMessage = new MessageStructure();
 
                 this.chatService.IsSomebodyLoggedHandler += chatService_IsSomebodyLoggedHandler;
-                this.chatService.TakeTextMessageHandler += ChatService_TakeTextMessageHandler;
-            }
+                this.chatService.TakeTextMessageHandler += ChatService_TakeTextMessageHandler;         
         }
 
         private void ChatService_TakeTextMessageHandler(object sender, EventArgs e)
@@ -67,7 +61,7 @@ namespace KleinMessage.ViewModels
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                RegistryMessages
+                ApplicationItemsCollection.RegistryMessages
                 .First(x => x.Friend.IDApi == user.IDApi)
                 .Messages
                 .Add(new MessageContentStructure
@@ -83,7 +77,8 @@ namespace KleinMessage.ViewModels
         {
             User userConnected = sender as User;
 
-            if (RegistryMessages
+            if (ApplicationItemsCollection
+                .RegistryMessages
                 .FirstOrDefault(x => x.Friend == userConnected) == null)
             {
                 AddNewFriend(userConnected);
@@ -128,7 +123,7 @@ namespace KleinMessage.ViewModels
 
         public async Task LoadData()
         {
-            if (ApplicationItemsCollection.Logged != null && ApplicationItemsCollection.IsActive == false)
+            if (ApplicationItemsCollection.IsActive == false)
             {
                 await chatService.Connected();
                 List<User> users = await chatService.LogOnServer();
@@ -155,14 +150,14 @@ namespace KleinMessage.ViewModels
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                RegistryMessages.Add(messageStructure);
+                ApplicationItemsCollection.RegistryMessages.Add(messageStructure);
             });
         }
 
         public void ChangeCurrentMessage(User user)
         {
-            var x = RegistryMessages.FirstOrDefault(f => f.Friend == user);
-            CurrentMessage = x;
+            MessageStructure changeCurrentMessage = ApplicationItemsCollection.RegistryMessages.FirstOrDefault(f => f.Friend == user);
+            CurrentMessage = changeCurrentMessage;
         }
 
 
