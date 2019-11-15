@@ -110,7 +110,7 @@ namespace KleinMessage.ViewModels
                 CurrentMessage.Messages.Add(msg);
                 MessageContent = "";
             }
-        }
+        } 
 
         // --- Event Handlers --- //
         private void ChatService_TakeTextMessageHandler(object sender, EventArgs e)

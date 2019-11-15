@@ -22,7 +22,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" x:Name="FriendListColumn"/>
@@ -78,7 +78,7 @@
                 AcceptsReturn="True"
                 Foreground="White"
                 FontSize="25"
-                MaxLength="150" 
+                MaxLength="150"
                 cal:Message.Attach="[Event PreviewKeyDown] = [Action IsShiftClick($eventArgs)] " />
             
             <Button 

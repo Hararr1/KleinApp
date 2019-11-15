@@ -3,10 +3,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KleinMessage.Converters"
         mc:Ignorable="d"      
         Title="ShellView" Height="850" Width="800" AllowsTransparency="True" WindowStyle="None"
         Background="Transparent" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
-        MouseDown="Window_MouseDown" >
+        MouseDown="Window_MouseDown">
     <Grid>
         <Border CornerRadius="20 20 20 20" Background="#18314F"> 
 
@@ -26,6 +27,7 @@
             Grid.Row="0"
             Grid.Column="0"
             Margin="10"
+            Visibility="{Binding IsVisibleShowHideFriendList}"
             x:Name="ShowHideFriendList"
             Style="{StaticResource noBackgroundButton}">
                 <StackPanel>
@@ -47,12 +49,14 @@
                 <Button 
                     x:Name="ChatButton" 
                     Margin="20 5 15 10" 
-                    Style="{StaticResource noBackgroundButton}">
+                    Style="{StaticResource noBackgroundButton}"
+                    IsEnabled="{Binding IsEnabledChatButton}">
 
                     <StackPanel>
 
                         <Image 
-                            Source="/Assets/telegram-logo.png"
+                          
+                            Source="{Binding SourceChatButton}"
                             RenderOptions.BitmapScalingMode="HighQuality"
                             Width="40" 
                             Margin="0 10 0 0" />
@@ -69,11 +73,12 @@
                 <Button 
                     x:Name="SettingsButton" 
                     Margin="10 5 15 10" 
-                    Style="{StaticResource noBackgroundButton}">
+                    Style="{StaticResource noBackgroundButton}"
+                    IsEnabled="{Binding IsEnabledSettingsButton}">
                     <StackPanel>
 
                         <Image 
-                            Source="/Assets/two-settings-cogwheels.png" 
+                            Source="{Binding SourceSettingsButton}" 
                             RenderOptions.BitmapScalingMode="HighQuality" 
                             Width="40" 
                             Margin="0 10 0 0" />

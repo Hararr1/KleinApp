@@ -218,5 +218,11 @@
   <ItemGroup>
     <Resource Include="Assets\menuButton.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\telegram-logo-disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\two-settings-cogwheels-disabled.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

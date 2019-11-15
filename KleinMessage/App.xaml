@@ -1,17 +1,19 @@
 ﻿<Application x:Class="KleinMessage.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:KleinMessage">
+             xmlns:local="clr-namespace:KleinMessage"
+             xmlns:converter="clr-namespace:KleinMessage.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <local:Bootstrapper x:Key="Bootstrapper" />
                 </ResourceDictionary>
-                <ResourceDictionary Source="/Themes/roundButtonTheme.xaml"/>
-                <ResourceDictionary Source="/Themes/noBackgroundButton.xaml"/>
+                <ResourceDictionary Source="/Themes/roundButtonTheme.xaml" />
+                <ResourceDictionary Source="/Themes/noBackgroundButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converter:IsEnabledButtonConverter x:Key="IsEnabledButtonConverter" />
         </ResourceDictionary> 
         
         
