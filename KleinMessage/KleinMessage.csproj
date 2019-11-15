@@ -224,5 +224,14 @@
   <ItemGroup>
     <Resource Include="Assets\two-settings-cogwheels-disabled.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\thought-bubble.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

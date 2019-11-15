@@ -28,15 +28,16 @@
 
             <StackPanel 
                 Grid.Row="0"
-                Margin="0 100 0 0">
-                
-                <Image Source="/Assets/logo.png"  Width="150"/>
+                Margin="0 10 0 0">
+
+                <Image Source="/Assets/thought-bubble.png"  Width="250"/>
                 <TextBlock
                     x:Name="FirmNameTextBlock"
                     Text="KleinApp" 
                     FontFamily="Sitka Text"
+                    Foreground="#3399FF"
                     FontWeight="Light" 
-                    FontSize="40" 
+                    FontSize="50" 
                     HorizontalAlignment="Center" />
             </StackPanel>
             
@@ -52,8 +53,11 @@
                          x:Name="UsernameTextBox"                    
                          FontFamily="Sitka Text"                     
                          FontWeight="Light" 
-                         FontSize="30"                   
+                         FontSize="30"
+                         HorizontalContentAlignment="Center"
+                         VerticalAlignment="Center"
                          Background="Transparent"
+                         Foreground="White"
                          BorderThickness="0"
                          HorizontalAlignment="Center"
                          Width="350"
@@ -61,7 +65,8 @@
                          Opacity="0.6" GotFocus="ClickEvent"
                         Margin="20 0 0 0" />
                     <Image 
-                         Source="/Assets/username.png" Width="50"
+                         Source="/Assets/user.png" Width="50"
+                         RenderOptions.BitmapScalingMode="HighQuality"
                          Margin="30 0 0 0"
                          VerticalAlignment="Center"
                          HorizontalAlignment="Right"
@@ -69,7 +74,7 @@
                 </StackPanel>
                     <Label 
                          x:Name="UsernameLabel" Height="4"
-                         Background="Black"
+                         Background="#3399FF"
                          Opacity="0.5"
                         Width="450"
                          Margin="50,5,50,0"/>
@@ -80,14 +85,17 @@
 
                     <PasswordBox 
                         x:Name="PasswordTextBox" 
-                        FontFamily="Sitka Text"  
+                        FontFamily="Sitka Text"
+                        VerticalAlignment="Center"
                         FontWeight="Light"
                         FontSize="20"
                         Background="Transparent"
                         BorderThickness="0"
                         HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
                         Width="350"
                         Opacity="0.6" 
+                        Foreground="White"
                         MaxLength="20"
                         GotFocus="ClickEventPassword" 
                         Margin="20 0 0 0"
@@ -95,15 +103,16 @@
                         />
 
                     <Image 
-                       Source="/Assets/padlock.png" Width="50"
+                       Source="/Assets/lock.png" Width="50"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
+                       RenderOptions.BitmapScalingMode="HighQuality"
                        Opacity="0.5"
                        Margin="30 0 0 0"/>
                 </StackPanel>
                 <Label  
                         x:Name="PasswordLabel" Height="4"
-                        Background="Black"
+                        Background="#3399FF"
                         Opacity="0.5" Margin="50,5,50,0"
                         Width="450"/>
                 <TextBlock x:Name="RequestMessage"

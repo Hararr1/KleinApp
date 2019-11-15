@@ -3,6 +3,7 @@ using KleinAppDesktopUI.Library.Api;
 using KleinAppDesktopUI.Library.Models;
 using KleinMessage.EventModels;
 using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -10,8 +11,8 @@ namespace KleinMessage.ViewModels
 {
     public class LoginViewModel : Screen
     {
-        private string _username = "halo@wp.pl";
-        private string _password = "Herbatka16!";
+        private string _username;
+        private string _password;
         private IAPIHelper _apiHelper;
         private IEventAggregator _events;
         private string _requestMessage;
@@ -20,6 +21,15 @@ namespace KleinMessage.ViewModels
         {
             _apiHelper = aPIHelper;
             _events = events;
+
+            string username = ConfigurationManager.AppSettings["username"];
+            string password = ConfigurationManager.AppSettings["password"];
+
+            if (username != "" && password != "")
+            {
+                _username = username;
+                _password = password;
+            }
         }
         public string PasswordTextBox
         {
@@ -97,7 +107,7 @@ namespace KleinMessage.ViewModels
                 RequestMessage = "";
                 var result = await _apiHelper.Authenticate(UsernameTextBox, PasswordTextBox);
                 ApplicationItemsCollection.Logged = await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
-                _events.PublishOnUIThread(new LogOnEvent());
+                _events.PublishOnUIThread(new LogOnEvent(UsernameTextBox, PasswordTextBox));
 
 
             }

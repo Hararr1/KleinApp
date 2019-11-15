@@ -8,8 +8,6 @@
              d:DesignWidth="180" Foreground="White">
     
     <Border Padding="5">
-        
-      
 
         <Border>
             
@@ -53,22 +51,20 @@
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock 
                         Text="{Binding LastMessageFromFriend}"                       
-                        FontSize="15"
-                        HorizontalAlignment="Left"
+                        FontSize="15"                   
+                        HorizontalAlignment="Center"
                         Margin="5 0 0 0"
                         VerticalAlignment="Center" />
 
-                        <Label Height="0.5" Background="#FFA2A4A5" />
+                        <Label Height="0.5" Background="#FFA2A4A5" Width="150" />
                     </StackPanel>
-                        
-                    
-                    
+
+
+
                 </Grid>
 
-
-
-
             </Grid>
+            
         </Border>
 
     </Border>

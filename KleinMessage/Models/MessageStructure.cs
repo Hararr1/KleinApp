@@ -45,9 +45,9 @@ namespace KleinMessage.Models
 
             if (messages[lastMessageIndex].Flag == true)
             {
-                if (messages[lastMessageIndex].Content.Length > 10)
+                if (messages[lastMessageIndex].Content.Length > 16)
                 {
-                    LastMessageFromFriend = $" {messages[lastMessageIndex].Content.Substring(0, 10)} ...";
+                    LastMessageFromFriend = $" {messages[lastMessageIndex].Content.Substring(0, 16)} ...";
                 }
                 else
                 {

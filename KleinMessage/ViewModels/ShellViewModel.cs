@@ -3,6 +3,7 @@ using KleinMessage.EventModels;
 using KleinMessage.Models;
 using KleinMessage.Views;
 using KleinMessage.WorkSpace.Models;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -161,6 +162,11 @@ namespace KleinMessage.ViewModels
         #region Events
         public void Handle(LogOnEvent message)
         {
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            configuration.AppSettings.Settings["username"].Value = message.Username;
+            configuration.AppSettings.Settings["password"].Value = message.Password;
+            configuration.Save(ConfigurationSaveMode.Modified);
+
             NotifyOfPropertyChange(() => IsErrorVisible);
             NotifyOfPropertyChange(() => IsEnabledChatButton);
             NotifyOfPropertyChange(() => IsEnabledSettingsButton);
@@ -200,8 +206,6 @@ namespace KleinMessage.ViewModels
                     IsActiveFriendList = true;
                 }
             }
-
-
         }
 
         public void SettingsButton()
@@ -224,7 +228,11 @@ namespace KleinMessage.ViewModels
 
         public async Task exitButton()
         {
-           await chatservice.Disconnected();
+            if (ApplicationItemsCollection.Logged != null)
+            {
+                await chatservice.Disconnected();
+            }
+            
            Application.Current.Shutdown();
         }
         #endregion
